@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+
+$fonts : mat.define-typography-config(
+  $headline-1: mat.define-typography-level(52px, 56px, 300, 'Open Sans', -0.0288em),
+  $headline-2: mat.define-typography-level(38px, 38px, 400, 'Open Sans', -0.0132em),
+  $headline-3: mat.define-typography-level(32px, 36px, 400, 'Open Sans', 0em),
+  $headline-4: mat.define-typography-level(28px, 32px, 400, 'Open Sans', 0.0089em),
+  $headline-5: mat.define-typography-level(24px, 32px, 400, 'Open Sans', 0em),
+  $headline-6: mat.define-typography-level(20px, 32px, 500, 'Open Sans', 0.0075em),
+  $subtitle-1: mat.define-typography-level(16px, 28px, 400, 'Open Sans', 0.0094em),
+  $subtitle-2: mat.define-typography-level(15px, 24px, 500, 'Open Sans', 0.0067em),
+  $body-2: mat.define-typography-level(14px, 24px, 500, 'Open Sans', 0.0179em),
+  $body-1: mat.define-typography-level(14px, 20px, 400, 'Open Sans', 0.0179em),
+  $button: mat.define-typography-level(14px, 14px, 500, 'Open Sans', 0.0893em),
+  $caption: mat.define-typography-level(12px, 20px, 400, 'Open Sans', 0.0333em),
+);
+
+$theme: mat.define-light-theme(
+ (
+  typography: $fonts,
+ )
+);
+@include mat.all-component-themes($theme);

@@ -1,4 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'theme.scss';
+
+html, body { height: 100%; width: 100%; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #e2e2e2;
+  }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper {
+  position: relative !important;
+}
+
+.mat-mdc-form-field-bottom-align::before {
+  display: inline !important;
+}
+.mat-mdc-form-field-bottom-align {
+  margin-bottom: 10px !important;
+}
