@@ -21,14 +21,14 @@
                 <mat-label>Contraseña</mat-label>
                 <input required [type]="hidePassword ? 'password' : 'text'" matInput placeholder="" formControlName="password">
                 <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <!-- <mat-error *ngIf="password!.errors">
+                <mat-error *ngIf="password!.errors">
                     <span *ngFor="let error of password!.errors | keyvalue" [ngSwitch]="error.key">
                         <li *ngSwitchCase="'required'" >La contraseña es requerida</li>
-                        <li *ngSwitchCase="'minlength'" >La contraseña debe contener al menos 5 caracteres</li>
+                        <!-- <li *ngSwitchCase="'minlength'" >La contraseña debe contener al menos 5 caracteres</li>
                         <li *ngSwitchCase="'maxlength'" >La contraseña puede contener hasta 20 caracteres</li>
-                        <li *ngSwitchCase="'pattern'" >La contraseña debe contener letras, numeros y al menos un simbolo especial</li>
+                        <li *ngSwitchCase="'pattern'" >La contraseña debe contener letras, numeros y al menos un simbolo especial</li> -->
                     </span>
-                </mat-error>   -->
+                </mat-error>  
             </mat-form-field>
 
             <a mat-button color="primary" routerLink="recovery">¿Olvidó su Contraseña?</a>

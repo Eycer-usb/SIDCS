@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <h3>Ingrese el codigo enviado a su correo</h3>
+  <mat-form-field>
+    <mat-label>Código de verificación</mat-label>
+    <input matInput [(ngModel)]="token" required name="tokenField" #tokenField="ngModel" >
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="btn-row">
+  <button mat-button (click)="onNoClick()">Cerrar</button>
+  <button [disabled]=" tokenField.valid ? 'false' : 'true'" mat-button (click)="verifyCode()">Verificar</button>
+</div>

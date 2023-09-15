@@ -1,1 +1,90 @@
-<p>signup works!</p>
+<mat-card>
+    <mat-card-title>
+        Registrarse
+    </mat-card-title>
+    <mat-card-content>
+        <!-- Formulario de Registro -->
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <!-- Nombre -->
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input required type="text" matInput placeholder="" formControlName="name">
+                <mat-error *ngIf="name!.errors">
+                    <span *ngFor="let error of name!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El nombre es requerido</li>
+                        <li *ngSwitchCase="'minlength'" >El nombre debe contener al menos 3 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El nombre puede contener hasta 20 caracteres</li>
+                    </span>
+                </mat-error>               
+            </mat-form-field>
+
+            <!-- Apellido -->
+            <mat-form-field>
+                <mat-label>Apellido</mat-label>
+                <input required type="text" matInput placeholder="" formControlName="lastname">
+                <mat-error *ngIf="lastname!.errors">
+                    <span *ngFor="let error of lastname!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El apellido es requerido</li>
+                        <li *ngSwitchCase="'minlength'" >El apellido debe contener al menos 3 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El apellido puede contener hasta 20 caracteres</li>
+                    </span>
+                </mat-error>               
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field>
+                <mat-label>Correo Electrónico</mat-label>
+                <input required type="email" matInput placeholder="" formControlName="email">
+                <mat-error *ngIf="email!.errors">
+                    <span *ngFor="let error of email!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El correo es requerido</li>
+                        <li *ngSwitchCase="'minlength'" >El correo debe contener al menos 5 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El correo puede contener hasta 20 caracteres</li>
+                        <li *ngSwitchCase="'email'" >El correo debe ser un correo válido</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Contraseña -->
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input (keyup)="updateConfirmPasswordValidation()"
+                required [type]="hidePassword ? 'password' : 'text'" matInput placeholder="" formControlName="password">
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="password!.errors">
+                    <span *ngFor="let error of password!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La contraseña es requerida</li>
+                        <li *ngSwitchCase="'minlength'" >La contraseña debe contener al menos 5 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >La contraseña puede contener hasta 20 caracteres</li>
+                        <li *ngSwitchCase="'pattern'" >La contraseña debe contener letras, numeros y al menos un simbolo especial</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Confirmar Contraseña -->
+            <mat-form-field>
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input required [type]="hideConfirmPassword ? 'password' : 'text'" matInput placeholder="" formControlName="confirmPassword">
+                <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error>
+                    <span *ngFor="let error of confirmPassword!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La contraseña es requerida</li>
+                        <li *ngSwitchCase="'passwordMismatch'" >La contraseñas no coinciden</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="btn-row" >
+                <!-- Boton de Regresar -->
+                <button mat-raised-button color="accent" routerLink="../">Regresar</button>
+
+                <!-- Botón de Registro -->
+                <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Registrarse</button>
+            </div>
+
+
+        </form>
+
+    </mat-card-content>
+    <mat-card-actions></mat-card-actions>
+</mat-card>
