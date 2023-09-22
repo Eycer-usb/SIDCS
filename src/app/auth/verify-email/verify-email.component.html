@@ -1,0 +1,27 @@
+
+<mat-card>
+    <mat-card-title>
+        <h1 *ngIf="isVerified" >¡Correo verificado!</h1>
+        <h1 *ngIf="!isVerified" >¡No se pudo verificar!</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <div class="wrapper" *ngIf="isVerified" style="--color:#7ac142">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+        <div class="wrapper" *ngIf="!isVerified" style="--color:#eb3333"> 
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36"/>
+            </svg>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary"
+                routerLink="/">Ir al Inicio</button>
+    </mat-card-actions>
+</mat-card>
+
+

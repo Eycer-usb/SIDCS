@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TokenDialogComponent } from './recover/token-dialog/token-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangePasswordComponent } from './recover/change-password/change-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChangePasswordComponent } from './recover/change-password/change-passwo
     RecoverComponent,
     AuthRootComponent,
     TokenDialogComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     CommonModule,
