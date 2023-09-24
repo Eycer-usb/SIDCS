@@ -10,7 +10,11 @@ export class SharedService {
 
   constructor( private http: HttpClient ) { }
 
-  async refreshLogin() {
+  /**
+   * Refresh Login Token Function send a request to server to refresh the token and if 
+   * the token is valid, return true
+   */
+  async refreshLogin(): Promise<Object | undefined> {
     const token = localStorage.getItem('jwt');
     const headers = { Authorization: `Bearer ${token}` || '' };
     const obs = this.http.post(`${environment.apiUrl}/auth/refresh-token`, null, { headers }  )
