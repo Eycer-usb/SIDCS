@@ -2,7 +2,7 @@
 <mat-card>
     <mat-card-title>Gestion de Contraseña</mat-card-title>
     <mat-card-content>
-        <form (ngSubmit)="requestVerificationCode()">
+        <form (ngSubmit)="verifyEmail()">
             <mat-form-field>
                 <mat-label>Usuario</mat-label>
                 <input required type="text" matInput placeholder="" [formControl]="email">
