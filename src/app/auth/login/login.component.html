@@ -10,7 +10,7 @@
                     <span *ngFor="let error of email!.errors | keyvalue" [ngSwitch]="error.key">
                         <li *ngSwitchCase="'required'" >El campo es requerido</li>
                         <li *ngSwitchCase="'minlength'" >El campo debe contener al menos 5 caracteres</li>
-                        <li *ngSwitchCase="'maxlength'" >El campo puede contener hasta 20 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El campo puede contener hasta 50 caracteres</li>
                         <li *ngSwitchCase="'email'" >El campo debe ser un correo válido</li>
                     </span>
                 </mat-error>               
@@ -31,7 +31,7 @@
                 </mat-error>  
             </mat-form-field>
 
-            <a mat-button color="primary" routerLink="recovery">¿Olvidó su Contraseña?</a>
+            <a mat-button color="primary" routerLink="../recovery">¿Olvidó su Contraseña?</a>
 
             <div class="button">
                 <button [disabled]="!loginForm.valid" 
@@ -41,7 +41,7 @@
         </form>
     </mat-card-content>
     <mat-card-actions>
-        <a mat-button routerLink="signup">Registrarse</a>
+        <a mat-button routerLink="../signup">Registrarse</a>
     </mat-card-actions>
 </mat-card>
 

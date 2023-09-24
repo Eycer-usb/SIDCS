@@ -5,6 +5,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recover',
@@ -14,7 +15,7 @@ import { AuthService } from '../auth.service';
 export class RecoverComponent {
 
   constructor(public dialog: MatDialog, private snack: MatSnackBar,
-    private services: AuthService) { }
+    private services: AuthService, private router: Router) { }
   email : FormControl = new FormControl('', [Validators.required, Validators.email]);
   password : string = '';
 
@@ -69,6 +70,7 @@ export class RecoverComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+          this.router.navigate(['/login']);
           this.snack.open("Contraseña actualizada correctamente", 'OK', { duration: 5000 });
       }
     });

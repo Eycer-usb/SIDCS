@@ -22,7 +22,7 @@ export class LoginComponent {
   emailValidators = [
     Validators.required,
     Validators.email, 
-    Validators.maxLength(20), 
+    Validators.maxLength(50), 
     Validators.minLength(5)
   ]
     
@@ -47,7 +47,7 @@ export class LoginComponent {
     const config = {
       next: (response : any) => {
         localStorage.setItem('jwt', response.access_token);
-        this.router.navigate(['../dashboard']);
+        this.router.navigate(['../']);
       },
       error: (err: any) => {
         let message: string = err.error.statusCode == 409 ? 'Usuario no encontrado' : 'Ocurrio un error';

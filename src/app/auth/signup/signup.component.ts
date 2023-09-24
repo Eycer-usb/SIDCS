@@ -21,7 +21,7 @@ export class SignupComponent {
   signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     lastname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-    email: ['', [Validators.required, Validators.email, Validators.maxLength(20), Validators.minLength(5)]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(50), Validators.minLength(5)]],
     password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@#$%&*:])[a-zA-Z0-9@#$%&*:]+$')]],
     confirmPassword: ['', [Validators.required, passwordMatchValidator()]]
   },
@@ -38,7 +38,7 @@ export class SignupComponent {
   signup() {
     const config = {
       complete: () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
         this.snackbar.open('Usuario creado, confirme su correo para iniciar sesión', 'Close', {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',

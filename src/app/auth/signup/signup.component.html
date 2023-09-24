@@ -39,7 +39,7 @@
                     <span *ngFor="let error of email!.errors | keyvalue" [ngSwitch]="error.key">
                         <li *ngSwitchCase="'required'" >El correo es requerido</li>
                         <li *ngSwitchCase="'minlength'" >El correo debe contener al menos 5 caracteres</li>
-                        <li *ngSwitchCase="'maxlength'" >El correo puede contener hasta 20 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El correo puede contener hasta 50 caracteres</li>
                         <li *ngSwitchCase="'email'" >El correo debe ser un correo válido</li>
                     </span>
                 </mat-error>
@@ -76,7 +76,7 @@
 
             <div class="btn-row" >
                 <!-- Boton de Regresar -->
-                <button mat-raised-button color="accent" routerLink="../">Regresar</button>
+                <button mat-raised-button color="accent" routerLink="../login">Regresar</button>
 
                 <!-- Botón de Registro -->
                 <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Registrarse</button>

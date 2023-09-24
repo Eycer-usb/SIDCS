@@ -4,20 +4,20 @@
     <mat-card-content>
         <form (ngSubmit)="verifyEmail()">
             <mat-form-field>
-                <mat-label>Usuario</mat-label>
+                <mat-label>Correo</mat-label>
                 <input required type="text" matInput placeholder="" [formControl]="email">
                 <mat-error *ngIf="email!.errors">
                     <span *ngFor="let error of email!.errors | keyvalue" [ngSwitch]="error.key">
                         <li *ngSwitchCase="'required'" >El campo es requerido</li>
                         <li *ngSwitchCase="'minlength'" >El campo debe contener al menos 5 caracteres</li>
-                        <li *ngSwitchCase="'maxlength'" >El campo puede contener hasta 20 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El campo puede contener hasta 50 caracteres</li>
                         <li *ngSwitchCase="'email'" >El campo debe ser un correo válido</li>
                     </span>
                 </mat-error>               
             </mat-form-field>
 
             <div class="btn-row">
-                <button mat-raised-button color="warn" routerLink="../"> Regresar</button>
+                <button mat-raised-button color="warn" routerLink="../login"> Regresar</button>
                 <button [disabled]="email.errors" type="submit" mat-raised-button color="primary">Siguiente</button>
             </div>
 

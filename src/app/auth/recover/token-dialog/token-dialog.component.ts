@@ -18,7 +18,6 @@ export class TokenDialogComponent {
     Validators.pattern('^[0-9]*$')]);
 
   verifyCode() {
-    console.log('Verifying Code');
     this.services.requestChangePassword(this.data.email, this.data.password, this.token.value!, {
       next: () => {
         this.dialogRef.close(true);
@@ -26,11 +25,11 @@ export class TokenDialogComponent {
       error: (err: any) => {
         console.log(err);
         if(err.status == 500){
-          this.snack.open("El token ingresado es incorrecto", 'OK', { duration: 5000 });
+          this.snack.open("El código ingresado es incorrecto", 'OK', { duration: 5000 });
           this.token.setErrors({invalid: true});
         }
         else
-        this.snack.open("Ocurrio un error al verificar el token", 'OK', { duration: 5000 });
+        this.snack.open("Ocurrio un error al verificar el código", 'OK', { duration: 5000 });
       }
     })    
   }
