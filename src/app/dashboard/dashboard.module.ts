@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
-
+import { MapComponent } from './map/map.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    NavigationComponent,
+    MapComponent
+  ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    NavigationComponent
+    MaterialModule,
+    RouterModule
   ]
 })
 export class DashboardModule { }
