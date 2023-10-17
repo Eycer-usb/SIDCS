@@ -147,7 +147,7 @@ export class AddLocationComponent implements OnInit {
     });
 
     centroOftalmologicoForm = this.fb.group({
-      oftalmologiaGeneralDesde: [''],
+      oftalmologiaGeneralDesde: ['', Validators.required],
       oftalmologiaGeneralHasta: [''],
       tratamientoGlaucomaCataratas: [false],
       protesisOculares: [false],
@@ -253,8 +253,8 @@ export class AddLocationComponent implements OnInit {
     fieldsGrupoMedico: any = {}
     fieldsClinicaPrivada: any = {}
     
-    selectField = new FormControl(null, Validators.required);// Field Selected in Select
-    inFormFields: Array<{label: string, value: string, control:FormControl, type:string, options:any}>= [] // Fields currently in form
+    selectField = new FormControl<string | null>(null);// Field Selected in Select
+    inFormFields: Array<{label: string, value: string, control:FormControl, type:string, options:any, required?: boolean}>= [] // Fields currently in form
 
     // Return the fields for the current type of centro de salud
     getFields() {
@@ -274,7 +274,7 @@ export class AddLocationComponent implements OnInit {
       }
     }
     // Return the form for the current type of centro de salud
-    private getForm()
+    private getForm(): FormGroup
     {
       switch(this.tipoCentro?.value){
         case 'laboratorioClinico':
@@ -301,13 +301,15 @@ export class AddLocationComponent implements OnInit {
         const label = fields[value].label;
         const type = fields[value].type;
         const options = fields[value].options;
+        const required = fields[value].required;
         const formControl = this.getForm().controls[selected] as FormControl;
-        const control: {label:string, control: FormControl, value:string, type:string, options:any} = {
+        const control: {label:string, control: FormControl, value:string, type:string, options:any, required?: boolean} = {
           label: label,
           control: formControl,
           value: value,
           type: type,
-          options: options
+          options: options,
+          required: required
         };
         this.inFormFields.push(control)
         delete fields[value];
@@ -332,7 +334,7 @@ export class AddLocationComponent implements OnInit {
         perfilPreoperatorio: { label: "Perfil Preoperatorio", type:'number', options: null }
       };
       this.fieldsCentroOdontologico = {
-        odontologiaGeneralDesde: { label: "Odontologia General Desde", type: 'number', options:null},
+        odontologiaGeneralDesde: { label: "Odontologia General Desde", type: 'number', options:null, required: true},
         odontologiaGeneralHasta: { label: "Odontologia General Hasta", type: 'number', options:null},
         ortodoncia: { label: "Ortodoncia", type: 'boolean', options:null},
         endodoncia: { label: "Endodoncia", type: 'boolean', options:null},
@@ -341,7 +343,7 @@ export class AddLocationComponent implements OnInit {
         rayosX: { label: "Rayos X", type: 'boolean', options:null},
       };
       this.fieldsCentroOftalmologico = {
-        oftalmologiaGeneralDesde: { label: "Oftalmologia General Desde", type: 'number', options: null},
+        oftalmologiaGeneralDesde: { label: "Oftalmologia General Desde", type: 'number', options: null, required: true},
         oftalmologiaGeneralHasta: { label: "Oftalmologia General Hasta", type: 'number', options: null},
         tratamientoGlaucomaCataratas: { label: "Tratamiento Glaucoma Cataratas", type: 'boolean', options: null},
         protesisOculares: { label: "Protesis Oculares", type: 'boolean', options: null},
@@ -350,7 +352,7 @@ export class AddLocationComponent implements OnInit {
         otros: { label: "Otros", type: 'boolean', options: null},
       };
       this.fieldsGrupoMedico = {
-        tipoId: { label: "Tipo de Grupo Medico", type: 'select', options: this.tiposGrupoMedico},
+        tipoId: { label: "Tipo de Grupo Medico", type: 'select', options: this.tiposGrupoMedico, required: true},
         medicinaGeneral: { label: "Medicina General", type:'number', options: null},
         medicinaInterna: { label: "Medicina Interna", type:'number', options: null},
         pediatria: { label: "Pediatria", type:'number', options: null},
@@ -422,6 +424,16 @@ export class AddLocationComponent implements OnInit {
       this.grupoMedicoForm.reset();
       this.clinicaPrivadaForm.reset();
       this.selectField.reset();
+    }
+
+    loadRequiredFields(){
+      const fields = this.getFields()
+      for( const key in fields ){
+        if(fields[key].required){
+          this.selectField.setValue(key);
+          this.addField();
+        }
+      }
     }
 
     getLabel(control: any){

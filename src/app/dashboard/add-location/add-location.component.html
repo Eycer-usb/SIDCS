@@ -154,7 +154,7 @@
     <!-- Tipo de Centro de Salud -->
     <mat-form-field>
         <mat-label>Tipo de Centro de Salud</mat-label>
-        <mat-select required [formControl]="tipoCentroSalud" (valueChange)="this.resetFields()">
+        <mat-select required [formControl]="tipoCentroSalud" (valueChange)="this.resetFields()" (selectionChange)="this.loadRequiredFields()">
             <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
                 {{tipoCentroSalud.nombre}}
             </mat-option>
@@ -211,11 +211,12 @@
         
         <mat-error *ngIf="inFormFields[i].control!.errors">
             <span *ngFor="let error of inFormFields[i].control!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >{{field.label}} es requerido</li>
                 <li *ngSwitchCase="'min'" >El {{field.label}} debe ser mayor a 0</li>
             </span>
         </mat-error>
     </mat-form-field>
-    <button mat-mini-fab color="primary" class="upload-btn"
+    <button *ngIf="!field.required" mat-mini-fab color="primary" class="upload-btn"
     (click)="deleteField(i)">
         <mat-icon>close</mat-icon>
     </button>
