@@ -12,19 +12,19 @@ export class AddLocationService {
   constructor(private http: HttpClient) { }
   token: string = localStorage.getItem('jwt') || '';
   
-  addLaboratorioClinico( form: FormGroup, config: Partial<Observer<Object>> ) {
+  addLaboratorioClinico( generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>> ) {
     console.log('addLaboratorioClinico');
   }
-  addGrupoMedico(form: FormGroup, config: Partial<Observer<Object>>) {
+  addGrupoMedico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
     console.log('addGrupoMedico');
   }
-  addClinicaPrivada(form: FormGroup, config: Partial<Observer<Object>>) {
+  addClinicaPrivada(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
     console.log('addClinicaPrivada');
   }
-  addCentroOdontologico(form: FormGroup, config: Partial<Observer<Object>>) {
+  addCentroOdontologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
     console.log('addCentroOdontologico');
   }
-  addCentroOftalmologico(form: FormGroup, config: Partial<Observer<Object>>) {
+  addCentroOftalmologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
     console.log('addCentroOftalmologico');
   }
   getZonas(errorFn: Function, zonas: Array<any>) {
