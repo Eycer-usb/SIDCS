@@ -315,8 +315,8 @@ export class AddLocationComponent implements OnInit {
       }
     }
     deleteField(i:number){
-      const control = this.inFormFields[i];
-      this.getFields()[control.value] = control.label;
+      const control: {label:string, control: FormControl, value:string, type:string, options:any} = this.inFormFields[i];
+      this.getFields()[control.value] = control;
       this.inFormFields[i].control.reset();
       this.inFormFields.splice(i, 1);
     }
