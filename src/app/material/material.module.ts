@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 const MaterialComponents = [
   MatSlideToggleModule,
@@ -27,7 +28,8 @@ const MaterialComponents = [
   MatIconModule,
   MatSnackBarModule,
   DashboardRoutingModule,
-  MatSelectModule
+  MatSelectModule,
+  MatRadioModule
 ]
 
 @NgModule({

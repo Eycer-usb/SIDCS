@@ -254,7 +254,7 @@ export class AddLocationComponent implements OnInit {
     fieldsClinicaPrivada: any = {}
     
     selectField = new FormControl(null, Validators.required);// Field Selected in Select
-    inFormFields: Array<{label: string, value: string, control:FormControl}>= [] // Fields currently in form
+    inFormFields: Array<{label: string, value: string, control:FormControl, type:string, options:any}>= [] // Fields currently in form
 
     // Return the fields for the current type of centro de salud
     getFields() {
@@ -298,12 +298,16 @@ export class AddLocationComponent implements OnInit {
       if( selected != null && selected != undefined && selected != ''){
         const value: string = this.selectField.value!;
         const fields = this.getFields();
-        const label = fields[value];
-        const control: {label:string, control: FormControl, value:string} = {
+        const label = fields[value].label;
+        const type = fields[value].type;
+        const options = fields[value].options;
+        const formControl = this.getForm().controls[selected] as FormControl;
+        const control: {label:string, control: FormControl, value:string, type:string, options:any} = {
           label: label,
-          control: this.getForm()
-          .controls[selected] as FormControl,
-          value: value
+          control: formControl,
+          value: value,
+          type: type,
+          options: options
         };
         this.inFormFields.push(control)
         delete fields[value];
@@ -319,97 +323,97 @@ export class AddLocationComponent implements OnInit {
 
     resetFields(){
       this.fieldsLaboratorioClinico = {
-        hematologiaCompleta: "Hematologia Completa",
-        perfil20: "Perfil 20",
-        perfilTiroideo: "Perfil Tiroideo",
-        urocultivo: "Urocultivo",
-        heces: "Heces",
-        orina: "Orina",
-        perfilPreoperatorio: "Perfil Preoperatorio"
+        hematologiaCompleta: {label: "Hematologia Completa", type: 'number', options: null},
+        perfil20: { label: "Perfil 20", type:'number', options: null },
+        perfilTiroideo: { label: "Perfil Tiroideo", type:'number', options: null },
+        urocultivo: { label: "Urocultivo", type:'number', options: null },
+        heces: { label: "Heces", type:'number', options: null },
+        orina: { label: "Orina", type:'number', options: null },
+        perfilPreoperatorio: { label: "Perfil Preoperatorio", type:'number', options: null }
       };
       this.fieldsCentroOdontologico = {
-        odontologiaGeneralDesde: "Odontologia General Desde",
-        odontologiaGeneralHasta: "Odontologia General Hasta",
-        ortodoncia: "Ortodoncia",
-        endodoncia: "Endodoncia",
-        cirugiaBucal: "Cirugia Bucal",
-        protesis: "Protesis",
-        rayosX: "Rayos X",
+        odontologiaGeneralDesde: { label: "Odontologia General Desde", type: 'number', options:null},
+        odontologiaGeneralHasta: { label: "Odontologia General Hasta", type: 'number', options:null},
+        ortodoncia: { label: "Ortodoncia", type: 'boolean', options:null},
+        endodoncia: { label: "Endodoncia", type: 'boolean', options:null},
+        cirugiaBucal: { label: "Cirugia Bucal", type: 'boolean', options:null},
+        protesis: { label: "Protesis", type: 'boolean', options:null},
+        rayosX: { label: "Rayos X", type: 'boolean', options:null},
       };
       this.fieldsCentroOftalmologico = {
-        oftalmologiaGeneralDesde: "Oftalmologia General Desde",
-        oftalmologiaGeneralHasta: "Oftalmologia General Hasta",
-        tratamientoGlaucomaCataratas: "Tratamiento Glaucoma Cataratas",
-        protesisOculares: "Protesis Oculares",
-        tratamientosEspecializados: "Tratamientos Especializados",
-        oncologia: "Oncologia",
-        otros: "Otros",
+        oftalmologiaGeneralDesde: { label: "Oftalmologia General Desde", type: 'number', options: null},
+        oftalmologiaGeneralHasta: { label: "Oftalmologia General Hasta", type: 'number', options: null},
+        tratamientoGlaucomaCataratas: { label: "Tratamiento Glaucoma Cataratas", type: 'boolean', options: null},
+        protesisOculares: { label: "Protesis Oculares", type: 'boolean', options: null},
+        tratamientosEspecializados: { label: "Tratamientos Especializados", type: 'boolean', options: null},
+        oncologia: { label: "Oncologia", type: 'boolean', options: null},
+        otros: { label: "Otros", type: 'boolean', options: null},
       };
       this.fieldsGrupoMedico = {
-        tipoId: "Tipo de Grupo Medico",
-        medicinaGeneral: "Medicina General",
-        medicinaInterna: "Medicina Interna",
-        pediatria: "Pediatria",
-        ginecologia: "Ginecologia",
-        obstetricia: "Obstetricia",
-        cardiologia: "Cardiologia",
-        gastro: "Gastroenterologia",
-        neurologia: "Neurologia",
-        neumonologia: "Neumonologia",
-        medicinaFyR: "Medicina Fisica y Rehabilitacion",
-        psiquiatria: "Psiquiatria",
-        psicologia: "Psicologia",
-        rayosXDeTorax: "Rayos X De Torax",
-        tomografiaAbdominalPelvica: "Tomografia Abdominal Pelvica",
-        resonanciaCerebral: "Resonancia Cerebral",
-        ecoAbdominal: "Eco Abdominal",
-        mamografia: "Mamografia",
-        densitometriaOsea: "Densitometria Osea",
-        epirometria: "Epirometria",
-        eeg: "Electroencefalograma",
-        lamparoscopia: "Lamparoscopia",
-        pruebaDeEsfuerzoCardio: "Prueba De Esfuerzo Cardio",
-        hematologiaCompleta: "Hematologia Completa",
-        perfil20: "Perfil 20",
-        perfilTiroideo: "Perfil Tiroideo",
-        urocultivo: "Urocultivo",
-        heces: "Heces",
-        orina: "Orina",
-        perfilPreoperatorio: "Perfil Preoperatorio",
-        apendicectomia: "Apendicectomia",
-        colecistectomia: "Colecistectomia",
-        herniaInguinal: "Hernia Inguinal",
-        cesarea: "Cesarea",
-        partoNormal: "Parto Normal",
-        hospitalizacion: "Hospitalizacion",
+        tipoId: { label: "Tipo de Grupo Medico", type: 'select', options: this.tiposGrupoMedico},
+        medicinaGeneral: { label: "Medicina General", type:'number', options: null},
+        medicinaInterna: { label: "Medicina Interna", type:'number', options: null},
+        pediatria: { label: "Pediatria", type:'number', options: null},
+        ginecologia: { label: "Ginecologia", type:'number', options: null},
+        obstetricia: { label: "Obstetricia", type:'number', options: null},
+        cardiologia: { label: "Cardiologia", type:'number', options: null},
+        gastro: { label: "Gastroenterologia", type:'number', options: null},
+        neurologia: { label: "Neurologia", type:'number', options: null},
+        neumonologia: { label: "Neumonologia", type:'number', options: null},
+        medicinaFyR: { label: "Medicina Fisica y Rehabilitacion", type:'number', options: null},
+        psiquiatria: { label: "Psiquiatria", type:'number', options: null},
+        psicologia: { label: "Psicologia", type:'number', options: null},
+        rayosXDeTorax: { label: "Rayos X De Torax", type:'number', options: null},
+        tomografiaAbdominalPelvica: { label: "Tomografia Abdominal Pelvica", type:'number', options: null},
+        resonanciaCerebral: { label: "Resonancia Cerebral", type:'number', options: null},
+        ecoAbdominal: { label: "Eco Abdominal", type:'number', options: null},
+        mamografia: { label: "Mamografia", type:'number', options: null},
+        densitometriaOsea: { label: "Densitometria Osea", type:'number', options: null},
+        epirometria: { label: "Epirometria", type:'number', options: null},
+        eeg: { label: "Electroencefalograma", type:'number', options: null},
+        lamparoscopia: { label: "Lamparoscopia", type:'number', options: null},
+        pruebaDeEsfuerzoCardio: { label: "Prueba De Esfuerzo Cardio", type:'number', options: null},
+        hematologiaCompleta: { label: "Hematologia Completa", type:'number', options: null},
+        perfil20: { label: "Perfil 20", type:'number', options: null},
+        perfilTiroideo: { label: "Perfil Tiroideo", type:'number', options: null},
+        urocultivo: { label: "Urocultivo", type:'number', options: null},
+        heces: { label: "Heces", type:'number', options: null},
+        orina: { label: "Orina", type:'number', options: null},
+        perfilPreoperatorio: { label: "Perfil Preoperatorio", type:'number', options: null},
+        apendicectomia: { label: "Apendicectomia", type:'number', options: null},
+        colecistectomia: { label: "Colecistectomia", type:'number', options: null},
+        herniaInguinal: { label: "Hernia Inguinal", type:'number', options: null},
+        cesarea: { label: "Cesarea", type:'number', options: null},
+        partoNormal: { label: "Parto Normal", type:'number', options: null},
+        hospitalizacion: { label: "Hospitalizacion", type:'number', options: null},
       };
       this.fieldsClinicaPrivada = {
-        emergencia: "Emergencia",
-        medicinaGeneral: "Medicina General",
-        medicinaInterna: "Medicina Interna",
-        pediatria: "Pediatria",
-        ginecologia: "Ginecologia",
-        obstetricia: "Obstetricia",
-        cardiologia: "Cardiologia",
-        rayosXDeTorax: "Rayos X De Torax",
-        tomografiaAbdominalPelvica: "Tomografia Abdominal Pelvica",
-        resonanciaCerebral: "Resonancia Cerebral",
-        ecoAbdominal: "Eco Abdominal",
-        mamografia: "Mamografia",
-        densitometriaOsea: "Densitometria Osea",
-        hematologiaCompleta: "Hematologia Completa",
-        perfil20: "Perfil 20",
-        perfilTiroideo: "Perfil Tiroideo",
-        urocultivo: "Urocultivo",
-        heces: "Heces",
-        orina: "Orina",
-        perfilPreoperatorio: "Perfil Preoperatorio",
-        apendicectomia: "Apendicectomia",
-        colecistectomiaLamparoscopica: "Colecistectomia Lamparoscopica",
-        herniorrafiaInguinal: "Herniorrafia Ingiunal",
-        cesarea: "Cesarea",
-        partoNormal: "Parto Normal",
-        hospitalizacion: "Hospitalizacion",
+        emergencia: { label: "Emergencia", type:'number', options: null},
+        medicinaGeneral: { label: "Medicina General", type:'number', options: null},
+        medicinaInterna: { label: "Medicina Interna", type:'number', options: null},
+        pediatria: { label: "Pediatria", type:'number', options: null},
+        ginecologia: { label: "Ginecologia", type:'number', options: null},
+        obstetricia: { label: "Obstetricia", type:'number', options: null},
+        cardiologia: { label: "Cardiologia", type:'number', options: null},
+        rayosXDeTorax: { label: "Rayos X De Torax", type:'number', options: null},
+        tomografiaAbdominalPelvica: { label: "Tomografia Abdominal Pelvica", type:'number', options: null},
+        resonanciaCerebral: { label: "Resonancia Cerebral", type:'number', options: null},
+        ecoAbdominal: { label: "Eco Abdominal", type:'number', options: null},
+        mamografia: { label: "Mamografia", type:'number', options: null},
+        densitometriaOsea: { label: "Densitometria Osea", type:'number', options: null},
+        hematologiaCompleta: { label: "Hematologia Completa", type:'number', options: null},
+        perfil20: { label: "Perfil 20", type:'number', options: null},
+        perfilTiroideo: { label: "Perfil Tiroideo", type:'number', options: null},
+        urocultivo: { label: "Urocultivo", type:'number', options: null},
+        heces: { label: "Heces", type:'number', options: null},
+        orina: { label: "Orina", type:'number', options: null},
+        perfilPreoperatorio: { label: "Perfil Preoperatorio", type:'number', options: null},
+        apendicectomia: { label: "Apendicectomia", type:'number', options: null},
+        colecistectomiaLamparoscopica: { label: "Colecistectomia Lamparoscopica", type:'number', options: null},
+        herniorrafiaInguinal: { label: "Herniorrafia Ingiunal", type:'number', options: null},
+        cesarea: { label: "Cesarea", type:'number', options: null},
+        partoNormal: { label: "Parto Normal", type:'number', options: null},
+        hospitalizacion: { label: "Hospitalizacion", type:'number', options: null},
       };
       this.inFormFields = [];
       this.laboratorioClinicoForm.reset();
@@ -418,6 +422,10 @@ export class AddLocationComponent implements OnInit {
       this.grupoMedicoForm.reset();
       this.clinicaPrivadaForm.reset();
       this.selectField.reset();
+    }
+
+    getLabel(control: any){
+      return control.label;
     }
 
 
