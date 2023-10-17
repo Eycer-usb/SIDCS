@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   MatSlideToggleModule,
@@ -25,7 +26,8 @@ const MaterialComponents = [
   MatInputModule,
   MatIconModule,
   MatSnackBarModule,
-  DashboardRoutingModule
+  DashboardRoutingModule,
+  MatSelectModule
 ]
 
 @NgModule({

@@ -1,1 +1,193 @@
-<p>add-location works!</p>
+<h1>Agregar Centro de Salud</h1>
+
+<!-- Imagenes -->
+<input type="file" class="file-input"
+(change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">    
+    <mat-label>Imagenes</mat-label>
+    <div class="file-upload-container">
+        <div class="file-upload-item" *ngFor="let image of this.genericForm.value.imagenes">
+            <img [src]="(this.endpoint + image) | secure | async" class="file-upload-image">
+            <mat-icon class="file-upload-remove" (click)="deleteFile(image)">close</mat-icon>
+        </div>
+    </div>
+    <mat-label class="file-upload-label">Subir Imagen</mat-label>
+    <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="fileUpload.click()">
+        <mat-icon>image</mat-icon>
+    </button>
+</div>
+
+<!-- Formulario -->
+<form [formGroup]="genericForm"  >  
+    <!-- Nombre -->
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input required type="text" matInput placeholder="" formControlName="nombre">
+        <mat-error *ngIf="nombre!.errors">
+            <span *ngFor="let error of nombre!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >El nombre es requerido</li>
+                <li *ngSwitchCase="'minlength'" >El nombre debe contener al menos 3 caracteres</li>
+                <li *ngSwitchCase="'maxlength'" >El nombre puede contener hasta 20 caracteres</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Direccion -->
+    <mat-form-field>
+        <mat-label>Dirección</mat-label>
+        <input required type="text" matInput placeholder="" formControlName="direccion">
+        <mat-error *ngIf="direccion!.errors">
+            <span *ngFor="let error of direccion!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La dirección es requerida</li>
+                <li *ngSwitchCase="'minlength'" >La dirección debe contener al menos 3 caracteres</li>
+                <li *ngSwitchCase="'maxlength'" >La dirección puede contener hasta 20 caracteres</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Latitud -->
+    <mat-form-field>
+        <mat-label>Latitud</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="latitud">
+        <mat-error *ngIf="latitud!.errors">
+            <span *ngFor="let error of latitud!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La latitud es requerida</li>
+                <li *ngSwitchCase="'min'" >La latitud debe ser mayor a -90</li>
+                <li *ngSwitchCase="'max'" >La latitud debe ser menor a 90</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Longitud -->
+    <mat-form-field>
+        <mat-label>Longitud</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="longitud">
+        <mat-error *ngIf="longitud!.errors">
+            <span *ngFor="let error of longitud!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La longitud es requerida</li>
+                <li *ngSwitchCase="'min'" >La longitud debe ser mayor a -180</li>
+                <li *ngSwitchCase="'max'" >La longitud debe ser menor a 180</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+    
+     <!-- Telefono -->
+    <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="telefono">
+        <mat-error *ngIf="telefono!.errors">
+            <span *ngFor="let error of telefono!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >El teléfono es requerido</li>
+                <li *ngSwitchCase="'min'" >El teléfono debe ser mayor a 0</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Tamaño -->
+    <mat-form-field>
+        <mat-label>Tamaño</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="tamano">
+        <mat-error *ngIf="tamano!.errors">
+            <span *ngFor="let error of tamano!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >El tamaño es requerido</li>
+                <li *ngSwitchCase="'min'" >El tamaño debe ser mayor a 0</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Limpieza -->
+    <mat-form-field>
+        <mat-label>Limpieza</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="limpieza">
+        <mat-error *ngIf="limpieza!.errors">
+            <span *ngFor="let error of limpieza!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La limpieza es requerida</li>
+                <li *ngSwitchCase="'min'" >La limpieza debe ser mayor a 0</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Demanda -->
+    <mat-form-field>
+        <mat-label>Demanda</mat-label>
+        <input required type="number" matInput placeholder="" formControlName="demanda">
+        <mat-error *ngIf="demanda!.errors">
+            <span *ngFor="let error of demanda!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La demanda es requerida</li>
+                <li *ngSwitchCase="'min'" >La demanda debe ser mayor a 0</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Localidad ID -->
+    <mat-form-field>
+        <mat-label>Localidad</mat-label>
+        <mat-select required formControlName="localidadId">
+            <mat-option *ngFor="let localidad of localidades" [value]="localidad.id">
+                {{localidad.nombre}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="localidadId!.errors">
+            <span *ngFor="let error of localidadId!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La localidad es requerida</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Zona ID -->
+    <mat-form-field>
+        <mat-label>Zona</mat-label>
+        <mat-select required formControlName="zonaId">
+            <mat-option *ngFor="let zona of zonas" [value]="zona.id">
+                {{zona.nombre}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="zonaId!.errors">
+            <span *ngFor="let error of zonaId!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >La zona es requerida</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Tipo de Centro de Salud -->
+    <mat-form-field>
+        <mat-label>Tipo de Centro de Salud</mat-label>
+        <mat-select required [formControl]="tipoCentroSalud">
+            <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
+                {{tipoCentroSalud.nombre}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="tipoCentroSalud!.errors">
+            <span *ngFor="let error of tipoCentroSalud!.errors | keyvalue" [ngSwitch]="error.key">
+                <li *ngSwitchCase="'required'" >El tipo de centro de salud es requerido</li>
+            </span>
+        </mat-error>
+    </mat-form-field>
+</form>
+
+<!-- Laboratorio Clinico Sub Form -->
+<form *ngIf="this.tipoCentro.value == 'laboratorioClinico'">
+    <p>Formulario Laboratorio Clinico</p>
+</form>
+
+<!-- GrupoMedico Sub Form-->
+<form *ngIf="this.tipoCentro.value == 'grupoMedico'">
+    <p>Formulario Grupo Medico</p>
+</form>
+
+<!-- Clinica Privada Sub Form -->
+<form *ngIf="this.tipoCentro.value == 'clinicaPrivada'">
+    <p>Formulario Clinica Privada</p>
+</form>
+
+<!-- Centro Odontologico Sub Form -->
+<form *ngIf="this.tipoCentro.value == 'centroOdontologico'">
+    <p>Formulario Centro Odontologico</p>
+</form>
+
+<!-- Centro Oftalmologico Sub Form -->
+<form *ngIf="this.tipoCentro.value == 'centroOftalmologico'">
+    <p>Formulario Centro Oftalmologico</p>
+</form>
