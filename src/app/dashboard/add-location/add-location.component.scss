@@ -1,3 +1,14 @@
+:host {
+    display: block;
+    padding: 3rem;
+    padding-top: 1rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+
 .file-input {
     display: none;
 }
@@ -7,4 +18,107 @@
     justify-content: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.file-upload-input {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    vertical-align: middle;
+    align-items: center;
+}
+.file-upload {
+    background-color: #ebebeb;
+    border-radius: 3px;
+    padding: 5px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.file-upload-input mat-label {
+    margin-right: .5rem;
+}
+
+.file-upload-items-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 3px;
+}
+.file-upload-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: not-allowed;
+    margin: 2px;
+}
+.file-upload-item img {
+    width: 400px;
+    height: auto;
+    border-radius: 3px;
+}
+
+.file-upload-item:hover img{
+    filter: blur(1px);    
+}
+
+.generic-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 2rem;
+}
+.generic-form-container mat-form-field {
+    width: 100%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.two-columns mat-form-field {
+    // margin-left: 1rem;
+    width: 46%;
+    min-width: 200px;
+    margin: 1em;
+}
+
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.three-columns mat-form-field {
+    // margin-left: 1rem;
+    width: 30%;
+    min-width: 200px;
+    margin: 1em;
+}
+
+.three-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#field-generator mat-form-field {
+    width: 48%;
+    min-width: 200px;
+    margin: 1em;
+    margin-bottom: 0;
+}
+
+#inserted-fields mat-form-field {
+    width: 43%;
+    min-width: 200px;
+    margin: 1em;
 }

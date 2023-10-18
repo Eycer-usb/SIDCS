@@ -5,171 +5,189 @@
 (change)="onFileSelected($event)" #fileUpload>
 
 <div class="file-upload">    
-    <mat-label>Imagenes</mat-label>
-    <div class="file-upload-container">
+    <div class="file-upload-items-container">
         <div class="file-upload-item" *ngFor="let image of this.genericForm.value.imagenes">
-            <img [src]="(this.endpoint + image) | secure | async" class="file-upload-image">
-            <mat-icon class="file-upload-remove" (click)="deleteFile(image)">close</mat-icon>
+            <img (click)="deleteFile(image)" [src]="(this.endpoint + image) | secure | async" class="file-upload-image">
+            <!-- <mat-icon class="file-upload-remove" (click)="deleteFile(image)">close</mat-icon> -->
         </div>
     </div>
-    <mat-label class="file-upload-label">Subir Imagen</mat-label>
-    <button mat-mini-fab color="primary" class="upload-btn"
-    (click)="fileUpload.click()">
-        <mat-icon>image</mat-icon>
-    </button>
+    <div class="file-upload-input">
+        <mat-label class="file-upload-label">Subir Imagen</mat-label>
+        <button mat-mini-fab color="primary" class="upload-btn"
+        (click)="fileUpload.click()">
+            <mat-icon>image</mat-icon>
+        </button>
+    </div>
 </div>
 
 <!-- Formulario -->
-<form [formGroup]="genericForm"  >  
-    <!-- Nombre -->
-    <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input required type="text" matInput placeholder="" formControlName="nombre">
-        <mat-error *ngIf="nombre!.errors">
-            <span *ngFor="let error of nombre!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >El nombre es requerido</li>
-                <li *ngSwitchCase="'minlength'" >El nombre debe contener al menos 3 caracteres</li>
-                <li *ngSwitchCase="'maxlength'" >El nombre puede contener hasta 20 caracteres</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+<form [formGroup]="genericForm" class="generic-form" >  
+    <div class="generic-form-container">
+        <div class="two-columns">
+            <!-- Nombre -->
+            <mat-form-field id="nombre">
+                <mat-label>Nombre</mat-label>
+                <input required type="text" matInput placeholder="" formControlName="nombre">
+                <mat-error *ngIf="nombre!.errors">
+                    <span *ngFor="let error of nombre!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El nombre es requerido</li>
+                        <li *ngSwitchCase="'minlength'" >El nombre debe contener al menos 3 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >El nombre puede contener hasta 250 caracteres</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            
+            <div class="two-columns">
+                <!-- Latitud -->
+                <mat-form-field id="latitud">
+                    <mat-label>Latitud</mat-label>
+                    <input required type="number" matInput placeholder="" formControlName="latitud">
+                    <mat-error *ngIf="latitud!.errors">
+                        <span *ngFor="let error of latitud!.errors | keyvalue" [ngSwitch]="error.key">
+                            <li *ngSwitchCase="'required'" >La latitud es requerida</li>
+                            <li *ngSwitchCase="'min'" >La latitud debe ser mayor a -90</li>
+                            <li *ngSwitchCase="'max'" >La latitud debe ser menor a 90</li>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
 
-    <!-- Direccion -->
-    <mat-form-field>
-        <mat-label>Dirección</mat-label>
-        <input required type="text" matInput placeholder="" formControlName="direccion">
-        <mat-error *ngIf="direccion!.errors">
-            <span *ngFor="let error of direccion!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La dirección es requerida</li>
-                <li *ngSwitchCase="'minlength'" >La dirección debe contener al menos 3 caracteres</li>
-                <li *ngSwitchCase="'maxlength'" >La dirección puede contener hasta 20 caracteres</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+                <!-- Longitud -->
+                <mat-form-field id="longitud">
+                    <mat-label>Longitud</mat-label>
+                    <input required type="number" matInput placeholder="" formControlName="longitud">
+                    <mat-error *ngIf="longitud!.errors">
+                        <span *ngFor="let error of longitud!.errors | keyvalue" [ngSwitch]="error.key">
+                            <li *ngSwitchCase="'required'" >La longitud es requerida</li>
+                            <li *ngSwitchCase="'min'" >La longitud debe ser mayor a -180</li>
+                            <li *ngSwitchCase="'max'" >La longitud debe ser menor a 180</li>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="two-columns">
+            <!-- Direccion -->
+            <mat-form-field>
+                <mat-label>Dirección</mat-label>
+                <input required type="textarea" matInput placeholder="" formControlName="direccion">
+                <mat-error *ngIf="direccion!.errors">
+                    <span *ngFor="let error of direccion!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La dirección es requerida</li>
+                        <li *ngSwitchCase="'minlength'" >La dirección debe contener al menos 3 caracteres</li>
+                        <li *ngSwitchCase="'maxlength'" >La dirección puede contener hasta 250 caracteres</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            
+            <!-- Telefono -->
+            <mat-form-field>
+                <mat-label>Teléfono</mat-label>
+                <input required type="text" matInput placeholder="" formControlName="telefono">
+                <mat-error *ngIf="telefono!.errors">
+                    <span *ngFor="let error of telefono!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El teléfono es requerido</li>
+                        <li *ngSwitchCase="'pattern'" >El teléfono debe ser un numero entre 8 y 12 digitos valido</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="three-columns">
+            <!-- Tamaño -->
+            <mat-form-field>
+                <mat-label>Tamaño</mat-label>
+                <input required type="number" matInput placeholder="" formControlName="tamano">
+                <mat-error *ngIf="tamano!.errors">
+                    <span *ngFor="let error of tamano!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >El tamaño es requerido</li>
+                        <li *ngSwitchCase="'min'" >El tamaño debe ser mayor a 0</li>
+                        <li *ngSwitchCase="'max'" >El tamaño debe ser menor o igual a 3</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
 
-    <!-- Latitud -->
-    <mat-form-field>
-        <mat-label>Latitud</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="latitud">
-        <mat-error *ngIf="latitud!.errors">
-            <span *ngFor="let error of latitud!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La latitud es requerida</li>
-                <li *ngSwitchCase="'min'" >La latitud debe ser mayor a -90</li>
-                <li *ngSwitchCase="'max'" >La latitud debe ser menor a 90</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+            <!-- Limpieza -->
+            <mat-form-field>
+                <mat-label>Limpieza</mat-label>
+                <input required type="number" matInput placeholder="" formControlName="limpieza">
+                <mat-error *ngIf="limpieza!.errors">
+                    <span *ngFor="let error of limpieza!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La limpieza es requerida</li>
+                        <li *ngSwitchCase="'min'" >La limpieza debe ser mayor a 0</li>
+                        <li *ngSwitchCase="'max'" >La limpieza debe ser menor o igual a 3</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
 
-    <!-- Longitud -->
-    <mat-form-field>
-        <mat-label>Longitud</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="longitud">
-        <mat-error *ngIf="longitud!.errors">
-            <span *ngFor="let error of longitud!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La longitud es requerida</li>
-                <li *ngSwitchCase="'min'" >La longitud debe ser mayor a -180</li>
-                <li *ngSwitchCase="'max'" >La longitud debe ser menor a 180</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
-    
-     <!-- Telefono -->
-    <mat-form-field>
-        <mat-label>Teléfono</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="telefono">
-        <mat-error *ngIf="telefono!.errors">
-            <span *ngFor="let error of telefono!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >El teléfono es requerido</li>
-                <li *ngSwitchCase="'min'" >El teléfono debe ser mayor a 0</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+            <!-- Demanda -->
+            <mat-form-field>
+                <mat-label>Demanda</mat-label>
+                <input required type="number" matInput placeholder="" formControlName="demanda">
+                <mat-error *ngIf="demanda!.errors">
+                    <span *ngFor="let error of demanda!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La demanda es requerida</li>
+                        <li *ngSwitchCase="'min'" >La demanda debe ser mayor a 0</li>
+                        <li *ngSwitchCase="'max'" >La demanda debe ser menor o igual a 3</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <!-- Tamaño -->
-    <mat-form-field>
-        <mat-label>Tamaño</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="tamano">
-        <mat-error *ngIf="tamano!.errors">
-            <span *ngFor="let error of tamano!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >El tamaño es requerido</li>
-                <li *ngSwitchCase="'min'" >El tamaño debe ser mayor a 0</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+        <div class="two-columns">
+            <!-- Localidad ID -->
+            <mat-form-field>
+                <mat-label>Localidad</mat-label>
+                <mat-select required formControlName="localidadId">
+                    <mat-option *ngFor="let localidad of localidades" [value]="localidad.id">
+                        {{localidad.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="localidadId!.errors">
+                    <span *ngFor="let error of localidadId!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La localidad es requerida</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
 
-    <!-- Limpieza -->
-    <mat-form-field>
-        <mat-label>Limpieza</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="limpieza">
-        <mat-error *ngIf="limpieza!.errors">
-            <span *ngFor="let error of limpieza!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La limpieza es requerida</li>
-                <li *ngSwitchCase="'min'" >La limpieza debe ser mayor a 0</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+            <!-- Zona ID -->
+            <mat-form-field>
+                <mat-label>Zona</mat-label>
+                <mat-select required formControlName="zonaId">
+                    <mat-option *ngFor="let zona of zonas" [value]="zona.id">
+                        {{zona.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="zonaId!.errors">
+                    <span *ngFor="let error of zonaId!.errors | keyvalue" [ngSwitch]="error.key">
+                        <li *ngSwitchCase="'required'" >La zona es requerida</li>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
 
-    <!-- Demanda -->
-    <mat-form-field>
-        <mat-label>Demanda</mat-label>
-        <input required type="number" matInput placeholder="" formControlName="demanda">
-        <mat-error *ngIf="demanda!.errors">
-            <span *ngFor="let error of demanda!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La demanda es requerida</li>
-                <li *ngSwitchCase="'min'" >La demanda debe ser mayor a 0</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+    <mat-divider></mat-divider>
 
-    <!-- Localidad ID -->
-    <mat-form-field>
-        <mat-label>Localidad</mat-label>
-        <mat-select required formControlName="localidadId">
-            <mat-option *ngFor="let localidad of localidades" [value]="localidad.id">
-                {{localidad.nombre}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="localidadId!.errors">
-            <span *ngFor="let error of localidadId!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La localidad es requerida</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Zona ID -->
-    <mat-form-field>
-        <mat-label>Zona</mat-label>
-        <mat-select required formControlName="zonaId">
-            <mat-option *ngFor="let zona of zonas" [value]="zona.id">
-                {{zona.nombre}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="zonaId!.errors">
-            <span *ngFor="let error of zonaId!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >La zona es requerida</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Tipo de Centro de Salud -->
-    <mat-form-field>
-        <mat-label>Tipo de Centro de Salud</mat-label>
-        <mat-select required [formControl]="tipoCentroSalud" (valueChange)="this.resetFields()" (selectionChange)="this.loadRequiredFields()">
-            <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
-                {{tipoCentroSalud.nombre}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="tipoCentroSalud!.errors">
-            <span *ngFor="let error of tipoCentroSalud!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >El tipo de centro de salud es requerido</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
+    <div class="generic-form-container">
+        <!-- Tipo de Centro de Salud -->
+        <mat-form-field id="tipo-centro-salud">
+            <mat-label>Tipo de Centro de Salud</mat-label>
+            <mat-select required [formControl]="tipoCentroSalud" (valueChange)="this.resetFields()" (selectionChange)="this.loadRequiredFields()">
+                <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
+                    {{tipoCentroSalud.nombre}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="tipoCentroSalud!.errors">
+                <span *ngFor="let error of tipoCentroSalud!.errors | keyvalue" [ngSwitch]="error.key">
+                    <li *ngSwitchCase="'required'" >El tipo de centro de salud es requerido</li>
+                </span>
+            </mat-error>
+        </mat-form-field>
+    </div>
 </form>
 
 <!-- Reactive Filds for each Form -->
 <!-- Select Fields -->
-<div *ngIf="this.tipoCentro.value">
+<div id="field-generator" *ngIf="this.tipoCentro.value" class="generic-form-container">
     <mat-form-field >
         <mat-label>Seleccionar Campo</mat-label>
         <mat-select [formControl]="this.selectField">
@@ -186,41 +204,43 @@
 </div>
 
 <!-- Inserted Fields -->
-<ng-container *ngFor="let field of this.inFormFields; let i = index">
-    <mat-form-field *ngIf="field.type == 'number' || field.type == 'select' || field.type == 'boolean'">
-        <mat-label>{{field.label}}</mat-label>
-        <!-- Number Type -->
-        <input *ngIf="field.type == 'number'" [type]="field.type" matInput placeholder="" [formControl]="field.control">
+<div class="generic-form-container two-columns" id="inserted-fields">
+    <ng-container *ngFor="let field of this.inFormFields; let i = index">
+        <mat-form-field *ngIf="field.type == 'number' || field.type == 'select' || field.type == 'boolean'">
+            <mat-label>{{field.label}}</mat-label>
+            <!-- Number Type -->
+            <input *ngIf="field.type == 'number'" [type]="field.type" matInput placeholder="" [formControl]="field.control">
 
-        <!-- Select Type -->
-        <mat-select *ngIf="field.type == 'select'" [formControl]="field.control">
-            <mat-option *ngFor="let option of field.options" [value]="option.id">
-                {{option.nombre}}
-            </mat-option>
-        </mat-select>
+            <!-- Select Type -->
+            <mat-select *ngIf="field.type == 'select'" [formControl]="field.control">
+                <mat-option *ngFor="let option of field.options" [value]="option.id">
+                    {{option.nombre}}
+                </mat-option>
+            </mat-select>
 
-        <!-- Boolean Type -->
-        <mat-select *ngIf="field.type == 'boolean'" [formControl]="field.control">
-            <mat-option [value]="true">
-                Si
-            </mat-option>
-            <mat-option [value]="false">
-                No
-            </mat-option>
-        </mat-select>
-        
-        <mat-error *ngIf="inFormFields[i].control!.errors">
-            <span *ngFor="let error of inFormFields[i].control!.errors | keyvalue" [ngSwitch]="error.key">
-                <li *ngSwitchCase="'required'" >{{field.label}} es requerido</li>
-                <li *ngSwitchCase="'min'" >El {{field.label}} debe ser mayor a 0</li>
-            </span>
-        </mat-error>
-    </mat-form-field>
-    <button *ngIf="!field.required" mat-mini-fab color="primary" class="upload-btn"
-    (click)="deleteField(i)">
-        <mat-icon>close</mat-icon>
-    </button>
-</ng-container>
+            <!-- Boolean Type -->
+            <mat-select *ngIf="field.type == 'boolean'" [formControl]="field.control">
+                <mat-option [value]="true">
+                    Si
+                </mat-option>
+                <mat-option [value]="false">
+                    No
+                </mat-option>
+            </mat-select>
+            
+            <mat-error *ngIf="inFormFields[i].control!.errors">
+                <span *ngFor="let error of inFormFields[i].control!.errors | keyvalue" [ngSwitch]="error.key">
+                    <li *ngSwitchCase="'required'" >{{field.label}} es requerido</li>
+                    <li *ngSwitchCase="'min'" >El {{field.label}} debe ser mayor a 0</li>
+                </span>
+            </mat-error>
+        </mat-form-field>
+        <button *ngIf="!field.required" mat-mini-fab color="primary" class="upload-btn"
+        (click)="deleteField(i)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </ng-container>
+</div>
 
 <div class="btn-row">
     <!-- Send Form -->

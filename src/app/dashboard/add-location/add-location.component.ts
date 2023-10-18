@@ -51,14 +51,14 @@ export class AddLocationComponent implements OnInit {
     tipoCentro: FormControl = new FormControl(null, Validators.required);
     
     genericForm = this.fb.group({
-      nombre: ['', Validators.required],
-      direccion: ['', Validators.required],
-      longitud: ['', Validators.required],
-      latitud: ['', Validators.required],
-      telefono: ['', Validators.required],
-      tamano: ['', Validators.required],
-      limpieza: ['', Validators.required],
-      demanda: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      direccion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      latitud: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
+      longitud: ['', [Validators.required, Validators.min(-180), Validators.max(180)]],
+      telefono: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{10,12}$/)]],
+      tamano: ['', [Validators.required, Validators.pattern(/^[0-9]{1}$/), Validators.min(1), Validators.max(3)]],
+      limpieza: ['', [Validators.required, Validators.pattern(/^[0-9]{1}$/), Validators.min(1), Validators.max(3)]],
+      demanda: ['', [Validators.required, Validators.pattern(/^[0-9]{1}$/), Validators.min(1), Validators.max(3)]],
       localidadId: ['', Validators.required],
       zonaId: ['', Validators.required],
       imagenes: this.fb.array([]),
