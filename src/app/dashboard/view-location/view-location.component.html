@@ -25,7 +25,7 @@
         <!-- Select of Tipo de Centro de Salud -->
         <mat-form-field>
             <mat-label>Tipo de Centro de Salud</mat-label>
-            <mat-select formControlName="tipoCentroSaludId">
+            <mat-select formControlName="tipoCentroSaludId" (selectionChange)="tipoGrupoMedicoId!.reset()">
                 <mat-option>-</mat-option>
                 <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
                     {{tipoCentroSalud.nombre}}

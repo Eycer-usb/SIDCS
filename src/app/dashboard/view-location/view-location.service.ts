@@ -15,10 +15,10 @@ export class ViewLocationService {
     tipoCentroSaludId?: string, tipoGrupoMedicoId?: number ): Observable<any>{
     const url = environment.apiUrl + "/centro-salud";
     this.options.params = {
-      zonaId: zonaId,
-      localidadId: localidadId,
-      tipoCentroDeSalud: tipoCentroSaludId,
-      tipoGrupoMedico: tipoGrupoMedicoId
+      zonaId: zonaId? zonaId : undefined,
+      localidadId: localidadId? localidadId : undefined,
+      tipoCentroDeSalud: tipoCentroSaludId? tipoCentroSaludId : undefined,
+      tipoGrupoMedicoId: tipoGrupoMedicoId? tipoGrupoMedicoId : undefined
     }
     return this.http.get(url, this.options);
   }
