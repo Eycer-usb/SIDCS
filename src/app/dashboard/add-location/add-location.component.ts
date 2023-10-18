@@ -21,6 +21,7 @@ export class AddLocationComponent implements OnInit {
     private snack: MatSnackBar, private service: AddLocationService,
     public dialog: MatDialog) {}
 
+  title = "Agregar Centro de Salud"
   // Selects data
   zonas: Array<any> = [];
   localidades: Array<any> = [];
