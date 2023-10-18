@@ -221,3 +221,12 @@
         <mat-icon>close</mat-icon>
     </button>
 </ng-container>
+
+<div class="btn-row">
+    <!-- Send Form -->
+    {{this.genericForm.errors}}
+    <button [disabled]="!isValidSubmit()" 
+        mat-raised-button color="primary" 
+        (click)="openDialog('300ms', '150ms')">Agregar Registro
+    </button>
+</div>

@@ -1,19 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AddLocationService } from './add-location.service';
-import { Observer, config } from 'rxjs';
+import { Observer, } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 
-enum centroType {
-  laboratorioClinico,
-  grupoMedico,
-  clinicaPrivada,
-  centroOdontologico,
-  centroOftalmologico
-}
 
 @Component({
   selector: 'app-add-location',
@@ -23,7 +18,8 @@ enum centroType {
 export class AddLocationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router,
-    private snack: MatSnackBar, private service: AddLocationService) {}
+    private snack: MatSnackBar, private service: AddLocationService,
+    public dialog: MatDialog) {}
 
   // Selects data
   zonas: Array<any> = [];
@@ -65,7 +61,7 @@ export class AddLocationComponent implements OnInit {
       demanda: ['', Validators.required],
       localidadId: ['', Validators.required],
       zonaId: ['', Validators.required],
-      imagenes: this.fb.array([], [Validators.required]),
+      imagenes: this.fb.array([]),
     });
 
     laboratorioClinicoForm = this.fb.group({
@@ -440,6 +436,27 @@ export class AddLocationComponent implements OnInit {
       return control.label;
     }
 
+    // Open confirm Dialog
+    openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+      this.dialog.open(ConfirmComponent, {
+        width: '350px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: { title: "¿Desea Continuar?", body: "Se agregara un nuevo centro de salud" }
+      }).afterClosed().subscribe(result => {
+        if(result) {
+          this.submit();
+        }
+      });
+    }
+
+    isValidSubmit() {
+      if (this.tipoCentro.valid) {
+        const form = this.getForm();
+        return form.valid && this.genericForm.valid;
+      }
+      return false
+    }
 
 
     // Getters

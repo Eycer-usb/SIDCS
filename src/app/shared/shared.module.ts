@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FileuploadComponent } from './fileupload/fileupload.component';
 import { SecurePipe } from './pipes/secure.pipe';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -10,10 +12,11 @@ import { SecurePipe } from './pipes/secure.pipe';
   declarations: [
     PageNotFoundComponent,
     FileuploadComponent,
-    SecurePipe
+    SecurePipe,
+    ConfirmComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, MaterialModule
   ],
   exports: [
     PageNotFoundComponent,
