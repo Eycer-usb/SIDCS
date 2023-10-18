@@ -114,7 +114,7 @@ export class AddLocationComponent implements OnInit {
     });
 
     clinicaPrivadaForm = this.fb.group({
-      emergencia: [''],
+      emergencia: ['', [Validators.required, Validators.pattern(/^[0-9]{1}$/), Validators.min(1), Validators.max(3)]],
       medicinaGeneral: [''],
       medicinaInterna: [''],
       pediatria: [''],
@@ -172,6 +172,9 @@ export class AddLocationComponent implements OnInit {
             verticalPosition: 'bottom',
             duration: 5000
           });
+          this.resetFields();
+          this.genericForm.reset();
+          this.tipoCentro.reset();
         },
         error: (error: any) => {
           console.log(error);
@@ -386,7 +389,7 @@ export class AddLocationComponent implements OnInit {
         hospitalizacion: { label: "Hospitalizacion", type:'number', options: null},
       };
       this.fieldsClinicaPrivada = {
-        emergencia: { label: "Emergencia", type:'number', options: null},
+        emergencia: { label: "Emergencia", type:'number', options: null, required:true},
         medicinaGeneral: { label: "Medicina General", type:'number', options: null},
         medicinaInterna: { label: "Medicina Interna", type:'number', options: null},
         pediatria: { label: "Pediatria", type:'number', options: null},

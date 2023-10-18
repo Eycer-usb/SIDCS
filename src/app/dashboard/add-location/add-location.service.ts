@@ -11,21 +11,29 @@ export class AddLocationService {
 
   constructor(private http: HttpClient) { }
   token: string = localStorage.getItem('jwt') || '';
+  options: any = { headers: { 'Authorization': `Bearer ${this.token}` } };
   
-  addLaboratorioClinico( generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>> ) {
-    console.log('addLaboratorioClinico');
+  async addLaboratorioClinico( generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>> ) {
+
+    return this.http.post(environment.apiUrl + "/laboratorio-clinico",
+    {...form.value, ...generic.value}, this.options).subscribe(config);
   }
   addGrupoMedico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
-    console.log('addGrupoMedico');
+    return this.http.post(environment.apiUrl + "/grupo-medico",
+    {...form.value, ...generic.value}, this.options).subscribe(config);
   }
   addClinicaPrivada(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
-    console.log('addClinicaPrivada');
+    form.value.emergencia = +form.value.emergencia;
+    return this.http.post(environment.apiUrl + "/clinica-privada",
+    {...form.value, ...generic.value}, this.options).subscribe(config);
   }
   addCentroOdontologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
-    console.log('addCentroOdontologico');
+    return this.http.post(environment.apiUrl + "/centro-odontologico",
+    {...form.value, ...generic.value}, this.options).subscribe(config);
   }
   addCentroOftalmologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
-    console.log('addCentroOftalmologico');
+    return this.http.post(environment.apiUrl + "/centro-oftalmologico",
+    {...form.value, ...generic.value}, this.options).subscribe(config);
   }
   getZonas(errorFn: Function, zonas: Array<any>) {
     return this.http.get(environment.apiUrl + "/zona", 
