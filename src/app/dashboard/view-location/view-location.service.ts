@@ -16,10 +16,12 @@ export class ViewLocationService {
     const url = environment.apiUrl + "/centro-salud";
     const options = {
       ...this.options,
+      params: {
       zonaId: zonaId? zonaId : undefined,
       localidadId: localidadId? localidadId : undefined,
       tipoCentroDeSalud: tipoCentroSaludId? tipoCentroSaludId : undefined,
       tipoGrupoMedicoId: tipoGrupoMedicoId? tipoGrupoMedicoId : undefined
+    }
     }
     return this.http.get(url, options);
   }

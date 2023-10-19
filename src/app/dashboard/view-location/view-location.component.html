@@ -2,6 +2,26 @@
 
 <div class="generic-form-container">
     <form [formGroup]="this.form">
+        <!-- Select of Tipo de Centro de Salud -->
+        <mat-form-field>
+            <mat-label>Tipo de Centro de Salud</mat-label>
+            <mat-select formControlName="tipoCentroSaludId" (selectionChange)="tipoGrupoMedicoId!.reset()">
+                <mat-option>-</mat-option>
+                <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
+                    {{tipoCentroSalud.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- Select of Grupo Medico type -->
+        <!-- <mat-form-field *ngIf="tipoCentroSaludId?.value == 'grupoMedico'">
+            <mat-label>Tipo de Grupo Medico</mat-label>
+            <mat-select formControlName="tipoGrupoMedicoId">
+                <mat-option>-</mat-option>
+                <mat-option *ngFor="let grupoMedico of this.tiposGrupoMedico" [value]="grupoMedico.id">
+                    {{grupoMedico.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field> -->
         <!-- Select of Zona -->
         <mat-form-field>
             <mat-label>Zona</mat-label>
@@ -22,26 +42,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- Select of Tipo de Centro de Salud -->
-        <mat-form-field>
-            <mat-label>Tipo de Centro de Salud</mat-label>
-            <mat-select formControlName="tipoCentroSaludId" (selectionChange)="tipoGrupoMedicoId!.reset()">
-                <mat-option>-</mat-option>
-                <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
-                    {{tipoCentroSalud.nombre}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <!-- Select of Grupo Medico type -->
-        <mat-form-field *ngIf="tipoCentroSaludId?.value == 'grupoMedico'">
-            <mat-label>Tipo de Grupo Medico</mat-label>
-            <mat-select formControlName="tipoGrupoMedicoId">
-                <mat-option>-</mat-option>
-                <mat-option *ngFor="let grupoMedico of this.tiposGrupoMedico" [value]="grupoMedico.id">
-                    {{grupoMedico.nombre}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        
         <div class="button-container">
             <!-- Add Icon Button-->
             <button mat-mini-fab color="primary" class="upload-btn"
