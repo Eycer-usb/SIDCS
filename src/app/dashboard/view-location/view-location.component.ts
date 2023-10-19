@@ -5,6 +5,7 @@ import { AddLocationService } from '../add-location/add-location.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewLocationService } from './view-location.service';
+import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 
 @Component({
   selector: 'app-view-location',
@@ -70,13 +71,39 @@ export class ViewLocationComponent implements OnInit {
               nombre: row.nombre,
               tipo: row.tipoCentroSalud,
               zonaId: `${row.zona.id} - ${row.zona.descripcion}`,
-              localidad: row.localidad.descripcion
+              localidad: row.localidad.descripcion,
+              meta: {
+                id: row.id,
+                nombre: row.nombre,
+                route: row.route,
+                zona: {
+                  id: row.zona.id,
+                  descripcion: row.zona.descripcion
+                },
+                localidad: {
+                  id: row.localidad.id,
+                  descripcion: row.localidad.descripcion
+                }
+              }
             }
             return {
               nombre: '',
               tipo: '',
               zonaId: 0,
-              localidad: ''
+              localidad: '',
+              meta: {
+                id: 0,
+                nombre: '',
+                route: '',
+                zona: {
+                  id: 0,
+                  descripcion: ''
+                },
+                localidad: {
+                  id: 0,
+                  descripcion: ''
+              }
+              }
             }
           })
         },
@@ -88,7 +115,29 @@ export class ViewLocationComponent implements OnInit {
     )
   }
 
-  delete(element: any) {console.log(element)}
+  confirmDelete(data: any) {
+    this.dialog.open(ConfirmComponent, {
+      width: '350px',
+      data: { title: "¿Desea Continuar?", body: "Se eliminara el centro de salud seleccionado" }
+    }).afterClosed().subscribe(result => {
+      if(result) {
+        console.log(data);
+        this.delete(data);
+      }
+    });
+  }
+
+  delete(element: any) {
+    this.service.delete(element).subscribe({
+      complete: () => {
+        this.snack.open('Centro de salud eliminado correctamente', 'Cerrar', { duration: 3000 });
+        this.search();
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.snack.open('Ocurrio un error al eliminar el centro de salud', 'Cerrar', { duration: 3000 });
+      }});
+  }
   edit(element: any) {console.log(element)}
 
   get zonaId() {
@@ -114,4 +163,17 @@ export interface row {
   tipo: string,
   zonaId: any,
   localidad: string
+  meta: {
+    id: number,
+    nombre: string,
+    route: string,
+    zona: {
+      id: number,
+      descripcion: string
+    },
+    localidad: {
+      id: number,
+      descripcion: string
+    }
+  }
 }

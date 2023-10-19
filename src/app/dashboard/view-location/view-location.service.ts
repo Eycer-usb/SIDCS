@@ -14,12 +14,18 @@ export class ViewLocationService {
   getData(zonaId?: number, localidadId?: number, 
     tipoCentroSaludId?: string, tipoGrupoMedicoId?: number ): Observable<any>{
     const url = environment.apiUrl + "/centro-salud";
-    this.options.params = {
+    const options = {
+      ...this.options,
       zonaId: zonaId? zonaId : undefined,
       localidadId: localidadId? localidadId : undefined,
       tipoCentroDeSalud: tipoCentroSaludId? tipoCentroSaludId : undefined,
       tipoGrupoMedicoId: tipoGrupoMedicoId? tipoGrupoMedicoId : undefined
     }
-    return this.http.get(url, this.options);
+    return this.http.get(url, options);
+  }
+
+  delete(element: any): Observable<any> {
+    const url = environment.apiUrl + "/" + element.route + "/" + element.id;
+    return this.http.delete(url, this.options);
   }
 }
