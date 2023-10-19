@@ -14,6 +14,8 @@ import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
+
 
 const MaterialComponents = [
   MatSlideToggleModule,
@@ -31,7 +33,8 @@ const MaterialComponents = [
   DashboardRoutingModule,
   MatSelectModule,
   MatRadioModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTableModule
 ]
 
 @NgModule({

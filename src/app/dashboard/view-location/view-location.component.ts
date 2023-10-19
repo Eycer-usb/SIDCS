@@ -53,6 +53,7 @@ export class ViewLocationComponent implements OnInit {
   });
 
   list: Array<row> = []
+  displayedColumns = ['nombre', 'tipo', 'zonaId', 'localidad', 'actions'];
 
   search() {
     let zonaId: number | undefined = +this.form.get(['zonaId'])?.value;
@@ -64,11 +65,18 @@ export class ViewLocationComponent implements OnInit {
       {
         next: (data: Array<any>) => {
           this.list = data.map((row: any) => {
+            if(row)
             return {
               nombre: row.nombre,
-              tipo: row.tipo,
-              zonaId: row.zonaId,
-              localidad: row.localidad
+              tipo: row.tipoCentroSalud,
+              zonaId: `${row.zona.id} - ${row.zona.descripcion}`,
+              localidad: row.localidad.descripcion
+            }
+            return {
+              nombre: '',
+              tipo: '',
+              zonaId: 0,
+              localidad: ''
             }
           })
         },
@@ -79,6 +87,9 @@ export class ViewLocationComponent implements OnInit {
       }
     )
   }
+
+  delete(element: any) {console.log(element)}
+  edit(element: any) {console.log(element)}
 
   get zonaId() {
     return this.form.get(['zonaId'])
@@ -101,6 +112,6 @@ export class ViewLocationComponent implements OnInit {
 export interface row {
   nombre: string,
   tipo: string,
-  zonaId: number,
+  zonaId: any,
   localidad: string
 }
