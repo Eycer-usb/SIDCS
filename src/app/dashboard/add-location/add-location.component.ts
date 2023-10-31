@@ -17,11 +17,13 @@ import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 })
 export class AddLocationComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private router: Router,
-    private snack: MatSnackBar, private service: AddLocationService,
+  constructor(protected fb: FormBuilder, protected router: Router,
+    protected snack: MatSnackBar, protected service: AddLocationService,
     public dialog: MatDialog) {}
 
   title = "Agregar Centro de Salud"
+  buttonText = "Agregar Registro"
+  modal = false;
   // Selects data
   zonas: Array<any> = [];
   localidades: Array<any> = [];
@@ -51,7 +53,7 @@ export class AddLocationComponent implements OnInit {
     // Form Controls
     tipoCentro: FormControl = new FormControl(null, Validators.required);
     
-    genericForm = this.fb.group({
+    genericForm : any = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
       direccion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
       latitud: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
@@ -274,7 +276,7 @@ export class AddLocationComponent implements OnInit {
       }
     }
     // Return the form for the current type of centro de salud
-    private getForm(): FormGroup
+    protected getForm(): FormGroup
     {
       switch(this.tipoCentro?.value){
         case 'laboratorioClinico':

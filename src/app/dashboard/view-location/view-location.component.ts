@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewLocationService } from './view-location.service';
 import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
+import { EditLocationComponent } from '../edit-location/edit-location.component';
 
 @Component({
   selector: 'app-view-location',
@@ -72,38 +73,14 @@ export class ViewLocationComponent implements OnInit {
               tipo: row.tipoCentroSalud,
               zonaId: `${row.zona.id} - ${row.zona.descripcion}`,
               localidad: row.localidad.descripcion,
-              meta: {
-                id: row.id,
-                nombre: row.nombre,
-                route: row.route,
-                zona: {
-                  id: row.zona.id,
-                  descripcion: row.zona.descripcion
-                },
-                localidad: {
-                  id: row.localidad.id,
-                  descripcion: row.localidad.descripcion
-                }
-              }
+              meta: row
             }
             return {
               nombre: '',
               tipo: '',
               zonaId: 0,
               localidad: '',
-              meta: {
-                id: 0,
-                nombre: '',
-                route: '',
-                zona: {
-                  id: 0,
-                  descripcion: ''
-                },
-                localidad: {
-                  id: 0,
-                  descripcion: ''
-              }
-              }
+              meta: {}
             }
           })
         },
@@ -138,7 +115,15 @@ export class ViewLocationComponent implements OnInit {
         this.snack.open('Ocurrio un error al eliminar el centro de salud', 'Cerrar', { duration: 3000 });
       }});
   }
-  edit(element: any) {console.log(element)}
+  edit(element: any) {
+    this.dialog.open( EditLocationComponent, {
+      data: element.meta,
+      width: '70%',
+      height: '80%'
+      
+    })
+  } 
+  
 
   get zonaId() {
     return this.form.get(['zonaId'])
@@ -163,17 +148,5 @@ export interface row {
   tipo: string,
   zonaId: any,
   localidad: string
-  meta: {
-    id: number,
-    nombre: string,
-    route: string,
-    zona: {
-      id: number,
-      descripcion: string
-    },
-    localidad: {
-      id: number,
-      descripcion: string
-    }
-  }
+  meta: any
 }
