@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddLocationService } from '../add-location/add-location.service';
 import { AddLocationComponent } from '../add-location/add-location.component';
-import { environment } from 'src/environments/environment';
+import { Observer } from 'rxjs';
+import { ViewLocationComponent } from '../view-location/view-location.component';
 
 @Component({
   selector: 'app-edit-location',
@@ -14,9 +15,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['../add-location/add-location.component.scss']
 })
 export class EditLocationComponent extends AddLocationComponent {
-  constructor(protected override fb: FormBuilder, protected override router: Router,
+  constructor(
+    public dialogRef: MatDialogRef<ViewLocationComponent>,
+    protected override fb: FormBuilder, protected override router: Router,
     protected override snack: MatSnackBar, public override service: AddLocationService,
-    public override dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
+    public override dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private changeDetector: ChangeDetectorRef) {
     super(fb, router, snack, service, dialog);
   }
@@ -24,7 +28,6 @@ export class EditLocationComponent extends AddLocationComponent {
   override title = ""
   override modal = true
   override buttonText = "Guardar"
-  override endpoint = environment.apiUrl + "/centro-salud/storage?path=centrosDeSalud/";
   
 
   ngAfterViewInit() {
@@ -108,4 +111,73 @@ export class EditLocationComponent extends AddLocationComponent {
     }
     
   }
+
+  // Try to delete file from server if it exists in uploads folder
+  // If it doesn't exist, it will be deleted from the form only
+  override deleteFile(filename: any) {
+    const errorFn = (error: any) => {
+     console.log(error.error.message, error.error.statusCode)
+    }
+    const images = this.genericForm.value.imagenes
+
+    this.service.deleteFile(filename, errorFn, images)
+  }
+
+  override modalConfirmMessageOnSend = "Se actualizara el centro de salud";
+
+  override submit() {
+    const config: Partial<Observer<Object>> = {
+      complete: () => {
+        this.snack.open('Centro de Salud actualizado correctamente', 'Cerrar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          duration: 5000
+        });
+        this.resetFields();
+        this.genericForm.reset();
+        this.tipoCentro.reset();
+        this.dialogRef.close('Closed by submit');
+      },
+      error: (error: any) => {
+        console.log(error);
+        let message = '';
+        switch (error.status) {
+          case 500:
+            message = 'Ocurrio un error en el servidor';
+            break;
+          default:
+            message = 'Ocurrio un error';
+            break;               
+        }
+        this.snack.open(message, 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
+    };
+    switch(this.tipoCentro?.value){
+      case 'laboratorioClinico':
+        this.service.updateLaboratorioClinico(this.genericForm, this.laboratorioClinicoForm, config)
+        break;
+      case 'grupoMedico':
+        this.service.updateGrupoMedico(this.genericForm, this.grupoMedicoForm, config)
+        break;
+      case 'clinicaPrivada':
+        this.service.updateClinicaPrivada(this.genericForm, this.clinicaPrivadaForm, config)
+        break;
+      case 'centroOdontologico':
+        this.service.updateCentroOdontologico(this.genericForm, this.centroOdontologicoForm, config)
+        break;
+      case 'centroOftalmologico':
+        this.service.updateCentroOftalmologico(this.genericForm, this.centroOftalmologicoForm, config)
+        break;
+      default:
+        this.snack.open('Error con el tipo de centro de salud', 'Cerrar', {
+          duration: 3000,
+        });
+        break;
+    }
+  }
+
 }

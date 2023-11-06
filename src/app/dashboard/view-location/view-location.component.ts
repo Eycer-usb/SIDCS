@@ -121,8 +121,12 @@ export class ViewLocationComponent implements OnInit {
       width: '70%',
       height: '80%'
       
-    })
-  } 
+    }).afterClosed().subscribe(result => {
+      if(result) {
+        this.search();
+      }
+    });
+  }
   
 
   get zonaId() {

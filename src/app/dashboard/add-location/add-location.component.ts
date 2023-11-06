@@ -226,7 +226,7 @@ export class AddLocationComponent implements OnInit {
     }
 
     // Image Upload
-    endpoint = environment.apiUrl + "/centro-salud/storage?path=uploads/";
+    endpoint = environment.apiUrl + "/centro-salud/storage?filename=";
     async onFileSelected(event: any) {
       const file: File = event.target.files[0];
       await this.service.uploadFile(file, {
@@ -443,12 +443,13 @@ export class AddLocationComponent implements OnInit {
     }
 
     // Open confirm Dialog
+    modalConfirmMessageOnSend = "Se agregara un nuevo centro de salud";
     openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
       this.dialog.open(ConfirmComponent, {
         width: '350px',
         enterAnimationDuration,
         exitAnimationDuration,
-        data: { title: "¿Desea Continuar?", body: "Se agregara un nuevo centro de salud" }
+        data: { title: "¿Desea Continuar?", body: this.modalConfirmMessageOnSend }
       }).afterClosed().subscribe(result => {
         if(result) {
           this.submit();

@@ -13,6 +13,7 @@ export class AddLocationService {
   token: string = localStorage.getItem('jwt') || '';
   options: any = { headers: { 'Authorization': `Bearer ${this.token}` } };
   
+  // Add Location
   async addLaboratorioClinico( generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>> ) {
 
     return this.http.post(environment.apiUrl + "/laboratorio-clinico",
@@ -35,6 +36,30 @@ export class AddLocationService {
     return this.http.post(environment.apiUrl + "/centro-oftalmologico",
     {...form.value, ...generic.value}, this.options).subscribe(config);
   }
+
+  // Update Location
+  updateLaboratorioClinico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
+    return this.http.patch(environment.apiUrl + "/laboratorio-clinico/" + generic.value.id,
+    {...form.value, ...generic.value}, this.options).subscribe(config);
+  }
+  updateGrupoMedico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
+    return this.http.patch(environment.apiUrl + "/grupo-medico/" + generic.value.id,
+    {...form.value, ...generic.value}, this.options).subscribe(config);
+  }
+  updateClinicaPrivada(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
+    return this.http.patch(environment.apiUrl + "/clinica-privada/" + generic.value.id,
+    {...form.value, ...generic.value}, this.options).subscribe(config);
+  }
+  updateCentroOdontologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
+    return this.http.patch(environment.apiUrl + "/centro-odontologico/" + generic.value.id,
+    {...form.value, ...generic.value}, this.options).subscribe(config);
+  }
+  updateCentroOftalmologico(generic: FormGroup, form: FormGroup, config: Partial<Observer<Object>>) {
+    return this.http.patch(environment.apiUrl + "/centro-oftalmologico/" + generic.value.id,
+    {...form.value, ...generic.value}, this.options).subscribe(config);
+  }
+
+  // Get Data
   getZonas(errorFn: Function, zonas: Array<any>) {
     return this.http.get(environment.apiUrl + "/zona", 
     { headers: { 'Authorization': `Bearer ${this.token}` } })
@@ -79,9 +104,8 @@ export class AddLocationService {
     { headers: { 'Authorization': `Bearer ${this.token}` } })
     .subscribe({
       error(error:any) {errorFn(error)},
-      next: (data) => {
-        images.splice(images.indexOf(filename), 1);
-      }
     })
+
+    images.splice(images.indexOf(filename), 1);
   }
 }
