@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AddLocationService } from '../add-location/add-location.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -33,10 +33,7 @@ export class ViewLocationComponent implements OnInit {
       this.snack.open('Ocurrio un error al cargar los datos', 'Cerrar', { duration: 3000 });
     }
 
-    // Get selects data
-    this.addLocationService.getZonas(error, this.zonas );
-    this.addLocationService.getLocalidades(error, this.localidades);
-    this.addLocationService.getTipoGrupoMedico(error, this.tiposGrupoMedico);
+
     this.tiposCentroDeSalud = [
       { id: 'laboratorioClinico', nombre: "Laboratorio Clinico" },
       { id: 'grupoMedico', nombre: "Grupo Medico" },
@@ -44,26 +41,57 @@ export class ViewLocationComponent implements OnInit {
       { id: 'centroOdontologico', nombre: "Centro Odontologico" },
       { id: 'centroOftalmologico', nombre: "Centro Oftalmologico" },
     ]
-    this.form.reset();
+
+    // Get selects data
+    this.service.getZonas().subscribe({
+      next: (data: any) => {
+        this.zonas = data.map((row: any) => {
+          return {
+            id: row.id,
+            nombre: `${row.id} - ${row.descripcion}`
+          }
+        })
+      },
+      error: error,
+      complete: () => {
+        this.fillSelects('zonaId', this.zonas);
+        this.service.getLocalidades(this.zonas).subscribe({
+          next: (data: any) => {
+            this.localidades = data.map((row: any) => {
+              return {
+                id: row.id,
+                nombre: `${row.id} - ${row.descripcion}`
+              }
+            })
+          },
+          error: error,
+          complete: () => {
+            this.fillSelects('localidadId', this.localidades);
+          }
+        })
+      }
+    })
+
+    this.fillSelects('tipoCentroSaludId', this.tiposCentroDeSalud);
+
+  }
+
+  
+  fillSelects( attr: string, array: any ): void {
+    this.form.setValue({ ...this.form.value, [attr]: array.map( (e:any) => e.id ) } as any)
   }
 
   form = this.fb.group({
-    zonaId: [''],
-    localidadId: [''],
-    tipoGrupoMedicoId: [''],
-    tipoCentroSaludId: [''],
+    zonaId: new FormControl(),
+    localidadId: new FormControl(),
+    tipoCentroSaludId: new FormControl(),
   });
 
   list: Array<row> = []
   displayedColumns = ['nombre', 'tipo', 'zonaId', 'localidad', 'actions'];
 
   search() {
-    let zonaId: number | undefined = +this.form.get(['zonaId'])?.value;
-    let localidadId: number | undefined = +this.form.get(['localidadId'])?.value;
-    let tipoGrupoMedicoId: number | undefined = +this.form.get(['tipoGrupoMedicoId'])?.value;
-    let tipoCentroSaludId: string | undefined = this.form.get(['tipoCentroSaludId'])?.value;
-
-    this.service.getData(zonaId, localidadId, tipoCentroSaludId, tipoGrupoMedicoId).subscribe(
+    this.service.getData( this.form.value ).subscribe(
       {
         next: (data: Array<any>) => {
           this.list = data.map((row: any) => {
@@ -90,6 +118,26 @@ export class ViewLocationComponent implements OnInit {
         }
       }
     )
+  }
+
+  refreshLocalidades() {
+    this.service.getLocalidades(this.form.value.zonaId).subscribe({
+      next: (data: any) => {
+        this.localidades = data.map((row: any) => {
+          return {
+            id: row.id,
+            nombre: `${row.id} - ${row.descripcion}`
+          }
+        })
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.snack.open('Ocurrio un error al cargar los datos', 'Cerrar', { duration: 3000 });
+      },
+      complete: () => {
+        this.fillSelects('localidadId', this.localidades);
+      }
+    })
   }
 
   confirmDelete(data: any) {

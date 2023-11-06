@@ -1,17 +1,27 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import * as L from 'leaflet';
+import { MapService } from './map.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent {
 
-  constructor() { }
+export class MapComponent  implements AfterViewInit{
 
-  mapOptions: google.maps.MapOptions = {
-    center: { lat: 10.4712235, lng: -66.8861625 },
+  public map = {
+    map: undefined,
+    htmlId: 'map',
+    center: [ 10.4712235, -66.8861625 ],
     zoom: 13
   };
+
+  constructor( private mapService: MapService) { }
+  async ngAfterViewInit() {
+    console.log(this.map.map)
+    await this.mapService.initMap( this.map );
+    await this.mapService.fillMap(this.map);
+  }
 
 }

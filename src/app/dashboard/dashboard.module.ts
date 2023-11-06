@@ -4,7 +4,6 @@ import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent } from './map/map.component';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { AddLocationComponent } from './add-location/add-location.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -24,7 +23,6 @@ import { EditLocationComponent } from './edit-location/edit-location.component';
     CommonModule,
     MaterialModule,
     RouterModule,
-    GoogleMapsModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule,

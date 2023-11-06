@@ -11,23 +11,31 @@ export class ViewLocationService {
   token: string = localStorage.getItem('jwt') || '';
   options: any = { headers: { 'Authorization': `Bearer ${this.token}` } };
 
-  getData(zonaId?: number, localidadId?: number, 
-    tipoCentroSaludId?: string, tipoGrupoMedicoId?: number ): Observable<any>{
+  getData( formValues: any ): Observable<any>{
     const url = environment.apiUrl + "/centro-salud";
     const options = {
       ...this.options,
-      params: {
-      zonaId: zonaId? zonaId : undefined,
-      localidadId: localidadId? localidadId : undefined,
-      tipoCentroDeSalud: tipoCentroSaludId? tipoCentroSaludId : undefined,
-      tipoGrupoMedicoId: tipoGrupoMedicoId? tipoGrupoMedicoId : undefined
+      body: formValues
     }
-    }
-    return this.http.get(url, options);
+    return this.http.post(url, options);
   }
 
   delete(element: any): Observable<any> {
     const url = environment.apiUrl + "/" + element.route + "/" + element.id;
     return this.http.delete(url, this.options);
+  }
+
+  // Get Data
+  getZonas() {
+    return this.http.get(environment.apiUrl + "/zona", 
+    { headers: { 'Authorization': `Bearer ${this.token}` } });
+  }
+  getLocalidades(zonas: Array<number>) {
+    return this.http.get(environment.apiUrl + "/localidad",
+    { headers: { 'Authorization': `Bearer ${this.token}` }, params: { zonas: zonas } });
+  }
+  getTipoGrupoMedico() {
+    return this.http.get(environment.apiUrl + "/tipo-grupo-medico",
+    { headers: { 'Authorization': `Bearer ${this.token}` } });
   }
 }

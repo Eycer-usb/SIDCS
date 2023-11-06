@@ -5,9 +5,13 @@
         <!-- Select of Tipo de Centro de Salud -->
         <mat-form-field>
             <mat-label>Tipo de Centro de Salud</mat-label>
-            <mat-select formControlName="tipoCentroSaludId" (selectionChange)="tipoGrupoMedicoId!.reset()">
-                <mat-option>-</mat-option>
-                <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" [value]="tipoCentroSalud.id">
+            <mat-select 
+                formControlName="tipoCentroSaludId" 
+                (selectionChange)="tipoGrupoMedicoId!.reset()"
+                multiple
+                >
+                <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" 
+                    [value]="tipoCentroSalud.id">
                     {{tipoCentroSalud.nombre}}
                 </mat-option>
             </mat-select>
@@ -25,8 +29,10 @@
         <!-- Select of Zona -->
         <mat-form-field>
             <mat-label>Zona</mat-label>
-            <mat-select formControlName="zonaId">
-                <mat-option>-</mat-option>
+            <mat-select formControlName="zonaId" 
+                multiple
+                (selectionChange)="this.refreshLocalidades()"
+                >
                 <mat-option *ngFor="let zona of this.zonas" [value]="zona.id">
                     {{zona.nombre}}
                 </mat-option>
@@ -35,8 +41,8 @@
         <!-- Select of Location -->
         <mat-form-field>
             <mat-label>Localidad</mat-label>
-            <mat-select formControlName="localidadId">
-                <mat-option>-</mat-option>
+            <mat-select formControlName="localidadId"
+                multiple>
                 <mat-option *ngFor="let localidad of this.localidades" [value]="localidad.id">
                     {{localidad.nombre}}
                 </mat-option>

@@ -1,8 +1,19 @@
+
 .map-container {
     position: absolute;
-    top: 55px;
+    top: 100px;
     bottom: 0;
-    width: 100%;
+    width: auto;
     right: 0;
     left: 0;
+    height: auto;
+  }
+  
+  .map-frame {
+    border: 2px solid black;
+    height: 100%;
+  }
+  
+  #map {
+    height: 100%;
   }
