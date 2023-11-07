@@ -14,9 +14,9 @@ import { EditLocationComponent } from '../edit-location/edit-location.component'
   styleUrls: ['./view-location.component.scss']
 })
 export class ViewLocationComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router,
-    private snack: MatSnackBar, private addLocationService: AddLocationService,
-    public dialog: MatDialog, private service: ViewLocationService) {}
+  constructor(protected fb: FormBuilder, protected router: Router,
+    protected snack: MatSnackBar, protected addLocationService: AddLocationService,
+    public dialog: MatDialog, protected service: ViewLocationService) {}
 
   title = "Lista de Registros"
 
@@ -55,20 +55,7 @@ export class ViewLocationComponent implements OnInit {
       error: error,
       complete: () => {
         this.fillSelects('zonaId', this.zonas);
-        this.service.getLocalidades(this.zonas).subscribe({
-          next: (data: any) => {
-            this.localidades = data.map((row: any) => {
-              return {
-                id: row.id,
-                nombre: `${row.id} - ${row.descripcion}`
-              }
-            })
-          },
-          error: error,
-          complete: () => {
-            this.fillSelects('localidadId', this.localidades);
-          }
-        })
+        this.refreshLocalidades();
       }
     })
 

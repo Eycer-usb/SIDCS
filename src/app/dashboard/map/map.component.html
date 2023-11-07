@@ -3,3 +3,85 @@
         <div id="map"></div>
     </div>
 </span>
+
+    <!-- oscuratore -->
+    <div class="dialog_scrim" *ngIf="openMenu">
+    </div>
+
+
+<!-- Floating button -->
+<div class="menu">
+    <button mat-fab color="primary"
+        (click)="clickMenu()"
+        class="menu-button"
+        >
+        <mat-icon *ngIf="!openMenu" >menu</mat-icon>
+        <mat-icon *ngIf="openMenu" >close</mat-icon>
+    </button>
+
+    <!-- Floating Menu Level 1 -->
+    <button mat-mini-fab color="basic"
+        *ngIf="openMenu"
+        (click)="saveMap()"
+        class="action-button one"
+    >
+        <mat-icon>download</mat-icon>
+    </button>
+
+    <button mat-raised-button color="basic"
+        *ngIf="openMenu"
+        (click)="saveMap()"
+        class="action-label labelone"
+    >
+        Descargar
+    </button>
+
+    <!-- Filter toolbar -->
+    <div class="filters" *ngIf="openMenu">
+        <form [formGroup]="this.form">
+            <!-- Select of Tipo de Centro de Salud -->
+            <mat-form-field>
+                <mat-label>Tipo de Centro de Salud</mat-label>
+                <mat-select 
+                    formControlName="tipoCentroSaludId" 
+                    multiple
+                    >
+                    <mat-option *ngFor="let tipoCentroSalud of this.tiposCentroDeSalud" 
+                        [value]="tipoCentroSalud.id">
+                        {{tipoCentroSalud.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Zona</mat-label>
+                <mat-select formControlName="zonaId" 
+                    multiple
+                    (selectionChange)="this.refreshLocalidades()"
+                    >
+                    <mat-option *ngFor="let zona of this.zonas" [value]="zona.id">
+                        {{zona.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Select of Location -->
+            <mat-form-field>
+                <mat-label>Localidad</mat-label>
+                <mat-select formControlName="localidadId"
+                    multiple>
+                    <mat-option *ngFor="let localidad of this.localidades" [value]="localidad.id">
+                        {{localidad.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="button-container">
+                <!-- Add Icon Button-->
+                <button mat-mini-fab color="primary" class="upload-btn"
+                (click)="search()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

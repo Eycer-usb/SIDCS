@@ -53,7 +53,7 @@ export class MapService {
   // Add a locations to the map
   addLocationsToMap( map: any, locations: Array<any> ) {
     locations.forEach( async (location) => {
-      await this.createMarker( location, map );
+      await this.createMarker( location.meta, map );
     });
   }
 
@@ -66,21 +66,32 @@ export class MapService {
     marker.addTo(map.map);
   }
 
-  // Fill the map with locations
-  async fillMap(map: any) {
-    const L = await this.getMap();
-    this.queryLocations(
-      (data: any) => {
-        console.log(data);
-        this.addLocationsToMap(map, data);
+  resetMap( map: any ): void {
+    map.map?.eachLayer((layer: any) => {
+      if(!layer._url)
+        map.map?.removeLayer(layer);
+    });
+  }
+
+  // Fill Map with polygons
+  async drawPolygons( map: any ): Promise<void> {
+    this.http.get('/assets/polygons.json').subscribe({
+      next: async (data: any) => {
+        console.log("Drawing polygons")
+        for(const key in data) {
+          const polygon = data[key];
+          const L = await this.getMap();
+          const poly = L.polygon(polygon, { color: '#' + map.styles[key].color });
+          poly.addTo(map.map);
+        }
       },
-      (err: any) => {
+      error: (err: any) => {
         console.log(err);
       },
-      () => {
-        console.log('Map Filling Complete');
+      complete: () => {
+        console.log('Complete');
       }
-    )
+    });
   }
 
 }

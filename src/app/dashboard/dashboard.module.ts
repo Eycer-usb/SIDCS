@@ -17,7 +17,7 @@ import { EditLocationComponent } from './edit-location/edit-location.component';
     MapComponent,
     AddLocationComponent,
     ViewLocationComponent,
-    EditLocationComponent
+    EditLocationComponent,
   ],
   imports: [
     CommonModule,
