@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { AddLocationService } from '../add-location/add-location.service';
 import { AddLocationComponent } from '../add-location/add-location.component';
 import { Observer } from 'rxjs';
-import { ViewLocationComponent } from '../view-location/view-location.component';
+import { ListLocationComponent } from '../list-location/list-location.component';
 
 @Component({
   selector: 'app-edit-location',
@@ -16,7 +16,7 @@ import { ViewLocationComponent } from '../view-location/view-location.component'
 })
 export class EditLocationComponent extends AddLocationComponent {
   constructor(
-    public dialogRef: MatDialogRef<ViewLocationComponent>,
+    public dialogRef: MatDialogRef<ListLocationComponent>,
     protected override fb: FormBuilder, protected override router: Router,
     protected override snack: MatSnackBar, public override service: AddLocationService,
     public override dialog: MatDialog,
@@ -25,10 +25,14 @@ export class EditLocationComponent extends AddLocationComponent {
     super(fb, router, snack, service, dialog);
   }
 
-  override title = ""
-  override modal = true
-  override buttonText = "Guardar"
   
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.title = ""
+    this.modal = true
+    this.buttonText = "Guardar"
+  }
 
   ngAfterViewInit() {
     this.genericForm.addControl('id', new FormControl(this.data.id, Validators.required))

@@ -51,21 +51,28 @@ export class MapService {
   }
 
   // Add a locations to the map
-  addLocationsToMap( map: any, locations: Array<any> ) {
+  addLocationsToMap( map: any, locations: Array<any>, callbackOnClickMarker: Function, options:any ): void {
     locations.forEach( async (location) => {
-      await this.createMarker( location.meta, map );
+      await this.createMarker( location.meta, map, callbackOnClickMarker, options );
     });
   }
 
   // Create a marker with the location data
-  async createMarker( location: any, map: any ): Promise<void> {
+  async createMarker( location: any, map: any, callbackOnClickMarker: Function, options:any ): Promise<void> {
     console.log("Creating marker ", [location.latitud, location.longitud])
     const L = await this.getMap();
-    const marker = L.marker([location.latitud, location.longitud]);
+    const customMarker = L.Marker.extend({ options: { location: {} } });
+    const marker = new customMarker([location.latitud, location.longitud], { location: location  });
     marker.bindPopup(`<b>${location.nombre}</b><br>${location.direccion}`);
-    marker.addTo(map.map);
+    marker.addTo(map.map).on('dblclick', (e: any ) => { callbackOnClickMarker(e.target.options.location, options); });
   }
 
+  // Open a dialog to view the location
+  viewLocation( location: any ): void {
+    console.log(location);
+  }
+
+  // Clear the map
   resetMap( map: any ): void {
     map.map?.eachLayer((layer: any) => {
       if(!layer._url)

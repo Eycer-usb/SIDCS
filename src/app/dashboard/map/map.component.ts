@@ -1,12 +1,13 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MapService } from './map.service';
-import { ViewLocationComponent } from '../view-location/view-location.component';
+import { ListLocationComponent } from '../list-location/list-location.component';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddLocationService } from '../add-location/add-location.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewLocationService } from '../view-location/view-location.service';
+import { ListLocationService } from '../list-location/list-location.service';
+import { EditLocationComponent } from '../edit-location/edit-location.component';
 
 @Component({
   selector: 'app-map',
@@ -14,7 +15,7 @@ import { ViewLocationService } from '../view-location/view-location.service';
   styleUrls: ['./map.component.scss']
 })
 
-export class MapComponent extends ViewLocationComponent implements AfterViewInit{
+export class MapComponent extends ListLocationComponent implements AfterViewInit{
 
   public map = {
     map: undefined,
@@ -36,20 +37,22 @@ export class MapComponent extends ViewLocationComponent implements AfterViewInit
   constructor( protected mapService: MapService,
     protected override fb: FormBuilder, protected override router: Router,
     protected override snack: MatSnackBar, protected override addLocationService: AddLocationService,
-    public override dialog: MatDialog, protected override service: ViewLocationService ) {
+    public override dialog: MatDialog, protected override service: ListLocationService ) {
     super( fb, router, snack, addLocationService, dialog, service );
    }
 
   async ngAfterViewInit() {
     await this.mapService.initMap( this.map );
-    // await this.mapService.fillMap(this.map);
     await this.mapService.drawPolygons( this.map )
+    this.search()
   }
 
+  // Hide or show the menu
   clickMenu() {this.openMenu = !this.openMenu; }
 
   saveMap() {console.log('saveMap'); }
 
+  // Search in server for locations and add them to the map
   override search(): void {
     this.service.getData( this.form.value ).subscribe(
       {
@@ -72,7 +75,7 @@ export class MapComponent extends ViewLocationComponent implements AfterViewInit
             }
           })
           this.mapService.resetMap( this.map );
-          this.mapService.addLocationsToMap( this.map, this.list );
+          this.mapService.addLocationsToMap( this.map, this.list, this.onClickMarker, { component: this } );
           this.mapService.drawPolygons( this.map );
 
         },
@@ -83,5 +86,16 @@ export class MapComponent extends ViewLocationComponent implements AfterViewInit
       }
     )
     this.openMenu = false;  
+  }
+
+  // Event Triggered when a marker is clicked
+  onClickMarker( location: any, options: any ): void {
+    console.log(location);
+    options.component.dialog.open( EditLocationComponent, {
+      data: location,
+      width: '70%',
+      height: '80%'
+      
+    })
   }
 }

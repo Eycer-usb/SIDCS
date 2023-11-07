@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ViewLocationService {
+export class ListLocationService {
 
   constructor( private http: HttpClient) { }
   token: string = localStorage.getItem('jwt') || '';

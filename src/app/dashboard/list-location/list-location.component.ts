@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { AddLocationService } from '../add-location/add-location.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewLocationService } from './view-location.service';
+import { ListLocationService } from './list-location.service';
 import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 import { EditLocationComponent } from '../edit-location/edit-location.component';
 
 @Component({
-  selector: 'app-view-location',
-  templateUrl: './view-location.component.html',
-  styleUrls: ['./view-location.component.scss']
+  selector: 'app-list-location',
+  templateUrl: './list-location.component.html',
+  styleUrls: ['./list-location.component.scss']
 })
-export class ViewLocationComponent implements OnInit {
+export class ListLocationComponent implements OnInit {
   constructor(protected fb: FormBuilder, protected router: Router,
     protected snack: MatSnackBar, protected addLocationService: AddLocationService,
-    public dialog: MatDialog, protected service: ViewLocationService) {}
+    public dialog: MatDialog, protected service: ListLocationService) {}
 
   title = "Lista de Registros"
 

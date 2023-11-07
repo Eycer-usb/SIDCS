@@ -8,7 +8,7 @@ import { AddLocationComponent } from './add-location/add-location.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ViewLocationComponent } from './view-location/view-location.component';
+import { ListLocationComponent } from './list-location/list-location.component';
 import { EditLocationComponent } from './edit-location/edit-location.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { EditLocationComponent } from './edit-location/edit-location.component';
     NavigationComponent,
     MapComponent,
     AddLocationComponent,
-    ViewLocationComponent,
+    ListLocationComponent,
     EditLocationComponent,
   ],
   imports: [
