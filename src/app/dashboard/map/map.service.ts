@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Map, Marker } from 'leaflet';
+import { SimpleMapScreenshoter } from 'leaflet-simple-map-screenshoter';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,12 +25,20 @@ export class MapService {
     map.map = L.map(map.htmlId, 
     {
       center: map.center,
-      zoom: map.zoom
+      zoom: map.zoom,
+      tap: false, 
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: 'topleft'
+      }
     });
 
     const tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 
     tiles.addTo(map.map);
+
+    const screenshoter = new SimpleMapScreenshoter();
+    screenshoter.addTo(map.map!);
   }
 
   // Search in server for locations and add them to the map

@@ -8,6 +8,8 @@ import { AddLocationService } from '../add-location/add-location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ListLocationService } from '../list-location/list-location.service';
 import { EditLocationComponent } from '../edit-location/edit-location.component';
+import { ViewLocationComponent } from '../view-location/view-location.component';
+import { Map } from 'leaflet';
 
 @Component({
   selector: 'app-map',
@@ -50,7 +52,12 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
   // Hide or show the menu
   clickMenu() {this.openMenu = !this.openMenu; }
 
-  saveMap() {console.log('saveMap'); }
+  centerMap() {
+    if(this.map.map){
+      (this.map.map as Map).setView( [this.map.center[0], this.map.center[1]], this.map.zoom );
+    }
+    this.clickMenu();
+   }
 
   // Search in server for locations and add them to the map
   override search(): void {
@@ -91,11 +98,10 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
   // Event Triggered when a marker is clicked
   onClickMarker( location: any, options: any ): void {
     console.log(location);
-    options.component.dialog.open( EditLocationComponent, {
+    options.component.dialog.open( ViewLocationComponent, {
       data: location,
       width: '70%',
       height: '80%'
-      
     })
   }
 }

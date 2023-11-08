@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListLocationComponent } from './list-location/list-location.component';
 import { EditLocationComponent } from './edit-location/edit-location.component';
+import { ViewLocationComponent } from './view-location/view-location.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EditLocationComponent } from './edit-location/edit-location.component';
     AddLocationComponent,
     ListLocationComponent,
     EditLocationComponent,
+    ViewLocationComponent,
   ],
   imports: [
     CommonModule,
