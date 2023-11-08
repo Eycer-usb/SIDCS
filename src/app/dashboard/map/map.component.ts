@@ -56,7 +56,6 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
     if(this.map.map){
       (this.map.map as Map).setView( [this.map.center[0], this.map.center[1]], this.map.zoom );
     }
-    this.clickMenu();
    }
 
   // Search in server for locations and add them to the map
