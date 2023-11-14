@@ -2,11 +2,15 @@
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
   margin: auto;
+  background-color: #e2e2e2;
+  padding: 0.5rem;
 }
 
+img {
+  border-radius: 5px;
+}
 /* Hide the images by default */
 .mySlides {
   display: none;
@@ -32,7 +36,11 @@
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
+  right: 0px;
+  border-radius: 3px 0 0 3px;
+}
+.prev {
+  left: 0px;
   border-radius: 3px 0 0 3px;
 }
 
