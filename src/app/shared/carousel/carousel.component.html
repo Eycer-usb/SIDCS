@@ -8,8 +8,8 @@
         >
     </div>
      <!-- Next and previous buttons -->
-    <a class="prev" (click)="this.plusSlides(-1)">&#10094;</a>
-    <a class="next" (click)="this.plusSlides(1)">&#10095;</a>
+    <a *ngIf="this.images.length > 1" class="prev" (click)="this.plusSlides(-1)">&#10094;</a>
+    <a *ngIf="this.images.length > 1" class="next" (click)="this.plusSlides(1)">&#10095;</a>
 </div>
 
 <div style="text-align:center" *ngIf="this.showControls" >

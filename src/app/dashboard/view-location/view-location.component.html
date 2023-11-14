@@ -1,7 +1,103 @@
-<app-carousel 
+<div class="container title mat-primary">
+    <h1>{{ this.data.nombre }}</h1>
+</div>
+
+<div class="container">
+    <app-carousel 
     [images]="this.data.imagenes"
-    [maxHeight]="'500px'"
-    [height]="'500px'"
+    [maxHeight]="'400px'"
+    [height]="'400px'"
     [showControls]="false"
     [endpoint]="this.endpoint"
-></app-carousel>
+    ></app-carousel>
+</div>
+
+<div class="container">
+    <!-- Nombre -->
+    <div class="generic-container">
+        <div class="two-columns">
+            <app-view-field 
+            label="Nombre"
+            [value]="this.data.nombre"
+            />
+        </div>
+    </div>
+
+    <div class="two-columns">
+
+        <!-- Dirección -->
+        <app-view-field 
+        label="Dirección"
+        [value]="this.data.direccion"
+        ></app-view-field>
+
+        <!-- Telefono -->
+        <app-view-field 
+        label="Teléfono"
+        [value]="this.data.telefono"
+        ></app-view-field>
+
+    </div>
+
+    <div class="three-columns">
+
+        <!-- Tamaño -->
+        <app-view-field 
+        label="Tamaño"
+        [value]="this.data.tamano"
+        ></app-view-field>
+
+        <!-- Limpieza -->
+        <app-view-field
+        label="Limpieza"
+        [value]="this.data.limpieza"
+        ></app-view-field>
+
+        <!-- Demanda -->
+        <app-view-field
+        label="Demanda"
+        [value]="this.data.demanda"
+        ></app-view-field>
+
+    </div>
+
+    <div class="two-columns">
+
+        <!-- Zona -->
+        <app-view-field
+        label="Zona"
+        [value]="this.data.zona.descripcion"
+        ></app-view-field>
+
+        <!-- Localidad -->
+        <app-view-field
+        label="Localidad"
+        [value]="this.data.localidad.descripcion"
+        ></app-view-field>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="two-columns">
+
+        <!-- Tipo de Centro de Salud -->
+        <app-view-field
+        label="Tipo de Centro de Salud"
+        [value]="this.data.tipoCentroSalud"
+        ></app-view-field>
+
+    </div>
+
+    <div class="fields">
+
+        <!-- Campos Especificos -->
+        <ng-container *ngFor="let field of this.specificData; let i = index">
+            <app-view-field
+            [label]="field.label"
+            [value]="field.value"
+            ></app-view-field>
+        </ng-container>
+    </div>
+
+</div>

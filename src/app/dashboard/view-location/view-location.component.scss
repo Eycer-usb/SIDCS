@@ -1,0 +1,98 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0.5rem 1rem;
+    padding-bottom: 3rem;
+}
+.container {
+    display: block;
+    padding: 0 3rem;
+    width: auto;
+    overflow-x: hidden;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.title {
+    padding: 1rem 3rem 1rem 3rem;
+}
+
+.generic-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 2rem;
+    padding-top: 0;
+}
+.generic-container mat-form-field {
+    width: 100%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.two-columns app-view-field {
+    width: 46%;
+    min-width: 200px;
+    margin: 1em;
+}
+
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.three-columns app-view-field {
+    // margin-left: 1rem;
+    width: 29%;
+    min-width: 200px;
+}
+
+.three-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+mat-divider {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.fields app-view-field {
+    width: 45%;
+}
+@media ( max-width: 599px ) {
+    .container {
+      padding: 0;
+    }
+    .title {
+        padding: 1rem 0rem;
+    }
+}

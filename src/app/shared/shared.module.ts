@@ -6,6 +6,7 @@ import { SecurePipe } from './pipes/secure.pipe';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { MaterialModule } from '../material/material.module';
 import { CarouselComponent } from './carousel/carousel.component';
+import { ViewFieldComponent } from './view-field/view-field.component';
 
 
 
@@ -15,7 +16,8 @@ import { CarouselComponent } from './carousel/carousel.component';
     FileuploadComponent,
     SecurePipe,
     ConfirmComponent,
-    CarouselComponent
+    CarouselComponent,
+    ViewFieldComponent
   ],
   imports: [
     CommonModule, MaterialModule
@@ -24,7 +26,8 @@ import { CarouselComponent } from './carousel/carousel.component';
     PageNotFoundComponent,
     FileuploadComponent,
     SecurePipe,
-    CarouselComponent
+    CarouselComponent,
+    ViewFieldComponent
   ]
 })
 export class SharedModule { }

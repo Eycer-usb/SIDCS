@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0.5rem 1rem;
+}
+
+.box {
+    background-color: rgb(245, 245, 245);
+    padding: 0 10px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1.5px solid #23338f;
+    min-width: 200px;
+}
+
+mat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #23338f;
+}
+
+.value {
+    display: block;
+    font-size: 14px;
+    text-align: justify;
+}
