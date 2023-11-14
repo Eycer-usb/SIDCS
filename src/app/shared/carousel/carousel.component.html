@@ -1,0 +1,19 @@
+<div class="slideshow-container">
+    <div class="fade mySlides {{this.actualIndex == i ? 'active' : ''}}" *ngFor="let image of images; let i = index;">
+        <img  
+        [src]="(this.endpoint + image.url) | secure | async " alt="Imagen del Centro de Salud" 
+        [ngStyle]="{'max-width': this.maxWidth}" 
+        [ngStyle]="{'max-height': this.maxHeight}"
+        [ngStyle]="{'height': this.height}"
+        >
+    </div>
+     <!-- Next and previous buttons -->
+    <a class="prev" (click)="this.plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="this.plusSlides(1)">&#10095;</a>
+</div>
+
+<div style="text-align:center" *ngIf="this.showControls" >
+    <ng-container *ngFor="let image of images; index as i ">
+        <span class="dot" (click)="this.setSlide(i)"></span>
+    </ng-container>
+</div>

@@ -1,3 +1,8 @@
-<div *ngFor="let image of this.data.imagenes">
-    <img [src]="(this.endpoint + image.url) | secure | async " alt="Imagen de la propiedad" width="100%" height="auto">
-</div>
+<app-carousel 
+    [images]="this.data.imagenes"
+    [maxHeight]="'500px'"
+    [height]="'500px'"
+    [showControls]="true"
+    [interval]="8000"
+    [endpoint]="this.endpoint"
+></app-carousel>

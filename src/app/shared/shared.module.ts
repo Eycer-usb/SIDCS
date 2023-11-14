@@ -5,6 +5,7 @@ import { FileuploadComponent } from './fileupload/fileupload.component';
 import { SecurePipe } from './pipes/secure.pipe';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { MaterialModule } from '../material/material.module';
+import { CarouselComponent } from './carousel/carousel.component';
 
 
 
@@ -13,7 +14,8 @@ import { MaterialModule } from '../material/material.module';
     PageNotFoundComponent,
     FileuploadComponent,
     SecurePipe,
-    ConfirmComponent
+    ConfirmComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule, MaterialModule
@@ -21,7 +23,8 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     PageNotFoundComponent,
     FileuploadComponent,
-    SecurePipe
+    SecurePipe,
+    CarouselComponent
   ]
 })
 export class SharedModule { }
