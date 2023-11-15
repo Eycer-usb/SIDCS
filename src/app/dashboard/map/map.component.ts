@@ -46,7 +46,7 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
   async ngAfterViewInit() {
     await this.mapService.initMap( this.map );
     await this.mapService.drawPolygons( this.map )
-    this.search()
+    // this.search()
   }
 
   // Hide or show the menu

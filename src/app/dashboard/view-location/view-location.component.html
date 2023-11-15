@@ -1,9 +1,9 @@
 <div class="container title mat-primary">
-    <h1>{{ this.data.nombre }}</h1>
+    <h1>{{ this.data.tipoCentroSalud }}</h1>
 </div>
 
 <div class="container">
-    <app-carousel 
+    <app-carousel *ngIf="this.data.imagenes.length > 0"
     [images]="this.data.imagenes"
     [maxHeight]="'400px'"
     [height]="'400px'"
