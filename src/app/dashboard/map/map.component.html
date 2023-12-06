@@ -76,4 +76,52 @@
             </div>
         </form>
     </div>
+
+    <div class="legend zona-legend" *ngIf="openMenu">
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles.zona_1.color"></div>
+            <div class="legend-text">Zona 1</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles.zona_2.color"></div>
+            <div class="legend-text">Zona 2</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles.zona_3.color"></div>
+            <div class="legend-text">Zona 3</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles.zona_4.color"></div>
+            <div class="legend-text">Zona 4</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles.zona_5.color"></div>
+            <div class="legend-text">Zona 5</div>
+        </div>
+    </div>
+
+    <div class="legend location-legend" *ngIf="openMenu">
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles['Laboratorio Clinico'].color"></div>
+            <div class="legend-text">Laboratorio Clínico</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles['Clinica Privada'].color"></div>
+            <div class="legend-text">Clinica Privada</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles['Centro Odontologico'].color"></div>
+            <div class="legend-text">Centro Odontológico</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles['Centro Oftalmologico'].color"></div>
+            <div class="legend-text">Centro Oftalmológico</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon" [style.background-color]="'#' + this.map.styles['Grupo Medico'].color"></div>
+            <div class="legend-text">Grupo Médico</div>
+        </div>
+    </div>
+
+
 </div>

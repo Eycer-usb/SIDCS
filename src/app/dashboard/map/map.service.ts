@@ -68,10 +68,30 @@ export class MapService {
 
   // Create a marker with the location data
   async createMarker( location: any, map: any, callbackOnClickMarker: Function, options:any ): Promise<void> {
-    console.log("Creating marker ", [location.latitud, location.longitud])
     const L = await this.getMap();
+    let color = '#' + map.styles[location.tipoCentroSalud].color;
+    
+    const markerHTMLStyles = `
+      background-color: ${color};
+      width: 1.2rem;
+      height: 1.2rem;
+      display: block;
+      left: -0.7rem;
+      top: -1rem;
+      position: relative;
+      border-radius: 1.2rem 1.2rem 0;
+      transform: rotate(45deg);
+      border: 1px solid #FFFFFF`
+    
+    const icon = L.divIcon({
+      className: "my-custom-pin",
+      iconAnchor: [0, 24],
+      labelAnchor: [-6, 0],
+      popupAnchor: [0, -36],
+      html: `<span style="${markerHTMLStyles}" />`
+    });
     const customMarker = L.Marker.extend({ options: { location: {} } });
-    const marker = new customMarker([location.latitud, location.longitud], { location: location  });
+    const marker = new customMarker([location.latitud, location.longitud], { location: location, icon: icon  });
     marker.bindPopup(`<b>${location.nombre}</b><br>${location.direccion}`);
     marker.addTo(map.map).on('dblclick', (e: any ) => { callbackOnClickMarker(e.target.options.location, options); });
   }

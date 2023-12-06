@@ -19,7 +19,7 @@ import { Map } from 'leaflet';
 
 export class MapComponent extends ListLocationComponent implements AfterViewInit{
 
-  public map = {
+  public map:any = {
     map: undefined,
     htmlId: 'map',
     center: [ 10.4712235, -66.8962635 ],
@@ -30,8 +30,14 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
       zona_3: {color: 'FF5733'},
       zona_4: {color: 'C042FF'},
       zona_5: {color: 'C62424'},
+      "Laboratorio Clinico": {color: '42ACFF'},
+      "Centro Odontologico": {color: 'BC005E'},
+      "Centro Oftalmologico": {color: '089F00'},
+      "Clinica Privada": {color: 'C042FF'},
+      "Grupo Medico": {color: 'BCB800'}
     }
   };
+  
 
   openMenu = false;
   
@@ -63,6 +69,7 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
     this.service.getData( this.form.value ).subscribe(
       {
         next: (data: Array<any>) => {
+          console.log(data);
           this.list = data.map((row: any) => {
             if(row)
             return {

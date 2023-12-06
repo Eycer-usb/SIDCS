@@ -117,7 +117,7 @@ export class AddLocationComponent implements OnInit {
     });
 
     clinicaPrivadaForm = this.fb.group({
-      emergencia: ['', [Validators.required, Validators.pattern(/^[0-9]{1}$/), Validators.min(1), Validators.max(3)]],
+      emergencia: ['', [Validators.required]],
       medicinaGeneral: [''],
       medicinaInterna: [''],
       pediatria: [''],
@@ -392,7 +392,7 @@ export class AddLocationComponent implements OnInit {
         hospitalizacion: { label: "Hospitalizacion", type:'number', options: null},
       };
       this.fieldsClinicaPrivada = {
-        emergencia: { label: "Emergencia", type:'number', options: null, required:true},
+        emergencia: { label: "Emergencia", type:'boolean', options: null, required:true},
         medicinaGeneral: { label: "Medicina General", type:'number', options: null},
         medicinaInterna: { label: "Medicina Interna", type:'number', options: null},
         pediatria: { label: "Pediatria", type:'number', options: null},
