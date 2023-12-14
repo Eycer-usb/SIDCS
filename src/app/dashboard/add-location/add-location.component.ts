@@ -114,6 +114,8 @@ export class AddLocationComponent implements OnInit {
       cesarea: [''],
       partoNormal: [''],
       hospitalizacion: [''],
+      observacionesConsulta: [''],
+      observacionesDiagnostico: [''],
     });
 
     clinicaPrivadaForm = this.fb.group({
@@ -390,6 +392,8 @@ export class AddLocationComponent implements OnInit {
         cesarea: { label: "Cesarea", type:'number', options: null},
         partoNormal: { label: "Parto Normal", type:'number', options: null},
         hospitalizacion: { label: "Hospitalizacion", type:'number', options: null},
+        observacionesConsulta: { label: "Observaciones Consulta", type:'text', options: null},
+        observacionesDiagnostico: { label: "Observaciones Diagnostico", type:'text', options: null},
       };
       this.fieldsClinicaPrivada = {
         emergencia: { label: "Emergencia", type:'boolean', options: null, required:true},

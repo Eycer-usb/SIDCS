@@ -206,7 +206,7 @@
 <!-- Inserted Fields -->
 <div class="generic-form-container two-columns" id="inserted-fields">
     <ng-container *ngFor="let field of this.inFormFields; let i = index">
-        <mat-form-field *ngIf="field.type == 'number' || field.type == 'select' || field.type == 'boolean'">
+        <mat-form-field *ngIf="field.type == 'number' || field.type == 'select' || field.type == 'boolean' || field.type == 'text'">
             <mat-label>{{field.label}}</mat-label>
             <!-- Number Type -->
             <input *ngIf="field.type == 'number'" [type]="field.type" matInput placeholder="" [formControl]="field.control">
@@ -227,6 +227,9 @@
                     No
                 </mat-option>
             </mat-select>
+
+            <!-- Text Type -->
+            <input *ngIf="field.type == 'text'" type="textarea" matInput placeholder="" [formControl]="field.control">
             
             <mat-error *ngIf="inFormFields[i].control!.errors">
                 <span *ngFor="let error of inFormFields[i].control!.errors | keyvalue" [ngSwitch]="error.key">
