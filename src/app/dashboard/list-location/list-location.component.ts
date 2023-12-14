@@ -35,11 +35,11 @@ export class ListLocationComponent implements OnInit {
 
 
     this.tiposCentroDeSalud = [
-      { id: 'laboratorioClinico', nombre: "Laboratorio Clinico" },
-      { id: 'grupoMedico', nombre: "Grupo Medico" },
-      { id: 'clinicaPrivada', nombre: "Clinica Privada" },
-      { id: 'centroOdontologico', nombre: "Centro Odontologico" },
-      { id: 'centroOftalmologico', nombre: "Centro Oftalmologico" },
+      { id: 'laboratorioClinico', nombre: "Laboratorios Clínicos" },
+      { id: 'grupoMedico', nombre: "Grupos Médicos y U. Especializadas" },
+      { id: 'clinicaPrivada', nombre: "Clínicas Privadas" },
+      { id: 'centroOdontologico', nombre: "Centros Odontológicos" },
+      { id: 'centroOftalmologico', nombre: "Centros Oftalmológicos" },
     ]
 
     // Get selects data

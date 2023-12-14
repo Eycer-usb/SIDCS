@@ -30,11 +30,11 @@ export class MapComponent extends ListLocationComponent implements AfterViewInit
       zona_3: {color: 'FF5733'},
       zona_4: {color: 'C042FF'},
       zona_5: {color: 'C62424'},
-      "Laboratorio Clinico": {color: '42ACFF'},
-      "Centro Odontologico": {color: 'BC005E'},
-      "Centro Oftalmologico": {color: '089F00'},
-      "Clinica Privada": {color: 'C042FF'},
-      "Grupo Medico": {color: 'BCB800'}
+      "Laboratorios Clínicos": {color: '42ACFF'},
+      "Centros Odontológicos": {color: 'BC005E'},
+      "Centros Oftalmológicos": {color: '089F00'},
+      "Clínicas Privadas": {color: 'C042FF'},
+      "Grupos Médicos y U. Especializadas": {color: 'BCB800'}
     }
   };
   
